@@ -1,0 +1,17 @@
+/node_modules
+/public/hot
+/public/storage
+/public/uploads
+/storage/*.key
+/vendor
+/.idea
+/.vscode
+/.vagrant
+/.phpintel
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+.env
+.htaccess
+/public/.htaccess

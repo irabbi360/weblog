@@ -27,3 +27,6 @@ Route::get('categories','Admin\CategoryController@index');
 Route::get('categories/{id}','Admin\CategoryController@edit');
 Route::put('categories-up/{id}','Admin\CategoryController@update');
 Route::delete('categories-delete/{id}','Admin\CategoryController@destroy');
+
+//post route
+Route::resource('posts','Admin\PostController');

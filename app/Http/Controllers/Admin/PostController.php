@@ -1,0 +1,134 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Post;
+use Illuminate\Http\Request;
+
+class PostController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $posts = Post::with('category')->paginate();
+
+        return view('admin.posts.index',compact('posts'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $categories = Category::all();
+
+        return view('admin.posts.create', compact('categories'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $this->validate($request,[
+            'title' => 'required',
+            //'image' => 'required',
+            'category' => 'required',
+            'description' => 'required',
+        ]);
+
+        $created = Post::create([
+            'title' => $request->title,
+            'category_id' => $request->category,
+            'description' => $request->description,
+            'created_by' => 1
+        ]);
+
+       if ($created){
+           return redirect()->back()->with('message','Post successfully saved');
+       }
+
+       return redirect()->back()->with('message','Whoops! something went wrong!');
+
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $post = Post::findOrfail($id);
+        $categories = Category::all();
+
+        return view('admin.posts.edit', compact('post','categories'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $this->validate($request,[
+            'title' => 'required',
+            //'image' => 'required',
+            'category' => 'required',
+            'description' => 'required',
+        ]);
+
+        $post = Post::find($id);
+        $post->title = $request->title;
+        $post->category_id = $request->category;
+        $post->description = $request->description;
+        $post->created_by = 1;
+
+        if ($post->save()){
+            return redirect()->back()->with('message','Post updated successfully');
+        }
+        return redirect()->back()->with('message','Whoops!!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+
+        if ($post->delete()){
+            return redirect()->back()->with('message','Post deleted successfully');
+        }
+        return redirect()->back()->with('message','Whoops!!');
+    }
+}

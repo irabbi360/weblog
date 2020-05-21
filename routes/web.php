@@ -12,6 +12,9 @@
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('post/{id}', 'HomeController@singlePost')->name('singlePost');
+Route::get('category/{id}', 'HomeController@categoryPost')->name('categoryPost');
+Route::get('search', 'HomeController@search')->name('search');
 
 Auth::routes();
 

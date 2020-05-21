@@ -52,10 +52,10 @@
                                 <tr>
                                     <td>{{ $post->id }}</td>
                                     <td>{{ $post->title }}</td>
-                                    <td>image</td>
+                                    <td><img src="{{ 'uploads/posts/'.$post->thumbnail }}" style="width: 50px; height: 50px" ></td>
                                     <td>{{ $post->category->title }}</td>
                                     <td>{{ $post->description }}</td>
-                                    <td>{{ $post->created_by }}</td>
+                                    <td>{{ optional($post->user)->name }}</td>
                                     <td>{{ $post->created_at->diffForHumans() }}</td>
                                     <td>
                                         <a href="{{ route('posts.edit', $post->id) }}">

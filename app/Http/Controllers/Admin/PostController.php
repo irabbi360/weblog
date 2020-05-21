@@ -6,9 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +23,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('category')->paginate();
+        $posts = Post::with('category','user')->orderBy('id','desc')->paginate();
 
         return view('admin.posts.index',compact('posts'));
     }
@@ -43,16 +50,23 @@ class PostController extends Controller
     {
         $this->validate($request,[
             'title' => 'required',
-            //'image' => 'required',
+            'image' => 'required',
             'category' => 'required',
             'description' => 'required',
         ]);
+
+        if ($request->hasFile('image')){
+            $image = $request->file('image');
+            $fileName = time().'.'. $image->getClientOriginalExtension();
+            Image::make($image)->save(public_path('uploads/posts/'. $fileName));
+        }
 
         $created = Post::create([
             'title' => $request->title,
             'category_id' => $request->category,
             'description' => $request->description,
-            'created_by' => 1
+            'created_by' => Auth::id(),
+            'thumbnail' => $fileName,
         ]);
 
        if ($created){
@@ -104,11 +118,18 @@ class PostController extends Controller
             'description' => 'required',
         ]);
 
+        if ($request->hasFile('image')){
+            $image = $request->file('image');
+            $fileName = time().'.'. $image->getClientOriginalExtension();
+            Image::make($image)->save(public_path('uploads/posts/'. $fileName));
+        }
+
         $post = Post::find($id);
         $post->title = $request->title;
         $post->category_id = $request->category;
         $post->description = $request->description;
-        $post->created_by = 1;
+        $post->created_by = Auth::id();
+        $post->thumbnail = $fileName;
 
         if ($post->save()){
             return redirect()->back()->with('message','Post updated successfully');

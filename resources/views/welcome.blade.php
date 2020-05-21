@@ -5,7 +5,7 @@
     <div class="nav-scroller py-1 mb-2">
         <nav class="nav d-flex justify-content-between">
             @foreach($categories as $category)
-            <a class="p-2 text-muted" href="#">{{ $category->title }}</a>
+            <a class="p-2 text-muted" href="{{ route('categoryPost', $category->id) }}">{{ $category->title }}</a>
             @endforeach
         </nav>
       </div>
@@ -39,13 +39,17 @@
 
 
 <div class="container">
-<form>
-    <div class="input-group input-group-lg mb-3">
-    <input type="text" name="search" placeholder="Enter keyword to search" value="" class="form-control">
-    <div class="input-group-append"><button type="submit" class="btn btn-primary">Search</button>
-</div>
-</div>
-</form>
+    <div class="mt-4">
+        <form method="get" action="{{ route('search') }}">
+            @csrf
+            <div class="input-group input-group-lg mb-3">
+                <input type="text" name="search" placeholder="Enter keyword to search" value="" class="form-control">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
   <div class="row">
       @foreach($posts as $post)
         <div class="col-md-4">
@@ -56,8 +60,8 @@
               <p class="card-text">{{ $post->title }}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <a href="{{ route('singlePost', $post->id) }}" class="btn btn-sm btn-outline-secondary">View</a>
+                  {{--<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>--}}
                 </div>
                 <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
               </div>

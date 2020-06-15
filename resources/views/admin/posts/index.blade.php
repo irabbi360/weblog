@@ -54,7 +54,7 @@
                                     <td>{{ $post->title }}</td>
                                     <td><img src="{{ 'uploads/posts/'.$post->thumbnail }}" style="width: 50px; height: 50px" ></td>
                                     <td>{{ $post->category->title }}</td>
-                                    <td>{{ $post->description }}</td>
+                                    <td>{{ strip_tags($post->description) }}</td>
                                     <td>{{ optional($post->user)->name }}</td>
                                     <td>{{ $post->created_at->diffForHumans() }}</td>
                                     <td>

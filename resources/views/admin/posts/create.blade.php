@@ -1,5 +1,9 @@
 @extends('admin.layouts.app')
 
+@section('styles')
+    <!-- summernote -->
+    <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.css') }}">
+@endsection
 @section('content')
 
         <!-- Content Header (Page header) -->
@@ -71,7 +75,7 @@
                                     </span>
                                     @enderror
                                 </div>
-
+                                <img src="" id="image-preview" style="max-height: 150px;">
                                 <div class="form-group">
                                     <label for="image">Upload Image</label>
                                     <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="image">
@@ -96,3 +100,26 @@
     </section>
 
 @endsection
+
+@section('scripts')
+    <!-- Summernote -->
+    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
+
+    <script>
+        $(function () {
+            $('textarea').summernote();
+        })
+
+        //image upload preview
+        $('#image').change(function () {
+            let reader = new FileReader();
+
+            reader.onload = (e) =>{
+                $('#image-preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(this.files[0])
+        })
+    </script>
+
+    @endsection

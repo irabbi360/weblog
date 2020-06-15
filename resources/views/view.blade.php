@@ -18,7 +18,7 @@
                 </div>
                 <hr>
                 <div class="post-body">
-                    {{ $post->description }}
+                    {!! $post->description !!}
                 </div>
             </div>
           </div>

@@ -11,21 +11,27 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
-Route::get('post/{id}', 'HomeController@singlePost')->name('singlePost');
-Route::get('category/{id}', 'HomeController@categoryPost')->name('categoryPost');
-Route::get('search', 'HomeController@search')->name('search');
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', [HomeController::class,'index']);
+Route::get('post/{id}', [HomeController::class,'singlePost'])->name('singlePost');
+Route::get('category/{id}', [HomeController::class,'categoryPost'])->name('categoryPost');
+Route::get('search', [HomeController::class,'search'])->name('search');
 
 Auth::routes();
 
-Route::get('admin','Admin\AdminController@index');
+Route::get('admin',[AdminController::class,'index']);
 //Route::resource('categories','Admin\CategoryController');
-Route::get('categories/create','Admin\CategoryController@create');
-Route::post('categories-store','Admin\CategoryController@store');
-Route::get('categories','Admin\CategoryController@index');
-Route::get('categories/{id}','Admin\CategoryController@edit');
-Route::put('categories-up/{id}','Admin\CategoryController@update');
-Route::delete('categories-delete/{id}','Admin\CategoryController@destroy');
+Route::get('categories/create',[CategoryController::class,'create']);
+Route::post('categories-store',[CategoryController::class,'store']);
+Route::get('categories',[CategoryController::class,'index']);
+Route::get('categories/{id}',[CategoryController::class,'edit']);
+Route::put('categories-up/{id}',[CategoryController::class,'update']);
+Route::delete('categories-delete/{id}',[CategoryController::class,'destroy']);
 
 //post route
-Route::resource('posts','Admin\PostController');
+Route::resource('posts',PostController::class);

@@ -13,7 +13,6 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,4 +33,4 @@ Route::put('categories-up/{id}',[CategoryController::class,'update']);
 Route::delete('categories-delete/{id}',[CategoryController::class,'destroy']);
 
 //post route
-Route::resource('posts',PostController::class);
+Route::resource('posts','\App\Http\Controllers\Admin\PostController');

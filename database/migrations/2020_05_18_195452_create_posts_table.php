@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->unsignedBigInteger('category_id');
             $table->longText('description');
-            $table->string('thumbnail');
+            $table->string('thumbnail')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });

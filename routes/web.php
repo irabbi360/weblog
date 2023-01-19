@@ -32,5 +32,8 @@ Route::get('categories/{id}',[CategoryController::class,'edit']);
 Route::put('categories-up/{id}',[CategoryController::class,'update']);
 Route::delete('categories-delete/{id}',[CategoryController::class,'destroy']);
 
+// tags
+Route::resource('/tags', 'TagController', ['except' => ['show']]);
+
 //post route
 Route::resource('posts','\App\Http\Controllers\Admin\PostController');

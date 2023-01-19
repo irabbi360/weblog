@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->longText('description');
             $table->string('thumbnail')->nullable();
             $table->unsignedBigInteger('created_by');
+            $table->boolean('is_published')->default(false);
             $table->timestamps();
         });
     }

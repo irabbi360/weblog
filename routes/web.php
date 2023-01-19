@@ -34,6 +34,7 @@ Route::delete('categories-delete/{id}',[CategoryController::class,'destroy']);
 
 // tags
 Route::resource('/tags', 'TagController', ['except' => ['show']]);
+Route::resource('/comments', 'CommentController', ['only' => ['index', 'destroy']]);
 
 //post route
 Route::resource('posts','\App\Http\Controllers\Admin\PostController');

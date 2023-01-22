@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePostRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -46,22 +48,15 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        $this->validate($request,[
-            'title' => 'required',
-            'image' => 'required',
-            'category' => 'required',
-            'description' => 'required',
-        ]);
-
         if ($request->hasFile('image')){
             $image = $request->file('image');
             $fileName = time().'.'. $image->getClientOriginalExtension();
             Image::make($image)->save(public_path('uploads/posts/'. $fileName));
         }
 
-        $created = Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'category_id' => $request->category,
             'description' => $request->description,
@@ -69,7 +64,13 @@ class PostController extends Controller
             'thumbnail' => $fileName,
         ]);
 
-       if ($created){
+       if ($post){
+           $tagsId = collect($request->tags)->map(function ($tag) {
+               return Tag::firstOrCreate(['name' => $tag])->id;
+           });
+
+           $post->tags()->attach($tagsId);
+
            return redirect()->back()->with('message','Post successfully saved');
        }
 

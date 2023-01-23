@@ -99,10 +99,6 @@
     </div>
 </div>
 
-
-<!-- Main Footer -->
-@include('admin.includes.footer')
-
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://unpkg.com/feather-icons"></script>

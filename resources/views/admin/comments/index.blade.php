@@ -28,11 +28,11 @@
                                 <td>{{ $tag->title }}</td>
                                 <td>{{ $tag->created_at->diffForHumans() }}</td>
                                 <td>
-                                    <a href="{{ url('tags', $tag->id) }}">
+                                    <a href="{{ route('admin.tags.edit', $tag->id) }}">
                                         <span class="badge bg-primary">Edit</span>
                                     </a>
                                     <form id="delete-form-{{ $tag->id }}" method="post"
-                                          action="{{ url('tags-delete', $tag->id) }}" style="display: none">
+                                          action="{{ route('admin.tags.destroy', $tag->id) }}" style="display: none">
                                         {{csrf_field()}}
                                         {{ method_field('DELETE') }}
                                     </form>

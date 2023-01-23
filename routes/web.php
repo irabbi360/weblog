@@ -11,7 +11,7 @@ Route::get('search', [HomeController::class, 'search'])->name('search');
 Auth::routes();
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
-    Route::get('admin', [AdminController::class, 'index'])->name('index');
+    Route::get('/', [AdminController::class, 'index'])->name('index');
 
     Route::resource('categories', CategoryController::class);
     Route::resource('/tags', 'TagController', ['except' => ['show']]);

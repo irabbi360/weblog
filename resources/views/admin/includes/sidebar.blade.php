@@ -8,31 +8,31 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('admin.users.index') }}">
                     <span data-feather="users" class="align-text-bottom"></span>
                     Users
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('admin.permissions.index') }}">
                     <span data-feather="bar-chart-2" class="align-text-bottom"></span>
                     Permissions
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('admin.roles.index') }}">
                     <span data-feather="list" class="align-text-bottom"></span>
                     Roles
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('posts.index') }}">
+                <a class="nav-link" href="{{ route('admin.posts.index') }}">
                     <span data-feather="file" class="align-text-bottom"></span>
                     Posts
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('categories') }}">
+                <a class="nav-link" href="{{ route('admin.categories.index') }}">
                     <span data-feather="list" class="align-text-bottom"></span>
                     Categories
                 </a>

@@ -38,3 +38,7 @@ Route::resource('/comments', 'CommentController', ['only' => ['index', 'destroy'
 
 //post route
 Route::resource('posts','\App\Http\Controllers\Admin\PostController');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

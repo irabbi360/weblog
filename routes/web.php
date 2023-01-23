@@ -23,7 +23,7 @@ Route::get('search', [HomeController::class,'search'])->name('search');
 
 Auth::routes();
 
-Route::get('admin',[AdminController::class,'index']);
+Route::get('admin',[AdminController::class,'index'])->name('admin.index');
 //Route::resource('categories','Admin\CategoryController');
 Route::get('categories/create',[CategoryController::class,'create']);
 Route::post('categories-store',[CategoryController::class,'store']);

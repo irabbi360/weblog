@@ -18,26 +18,65 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .min-h-screen {
+            min-height: 100vh;
+        }
+        .bg-gray-900 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(17 24 39/var(--tw-bg-opacity));
+        }
+        .bg-dark {
+            background-color: #1F2937 !important;
+        }
+        .bg-dark .navbar-brand {
+            color: #fff;
+        }
+        .bg-dark .nav-link {
+            color: #fff;
+        }
+        .max-w-7xl {
+            max-width: 80rem;
+        }
+        .bg-dark .card-text {
+            color: #fff;
+        }
+        .text-gray-400 {
+            --tw-text-opacity: 1;
+            color: rgb(156 163 175/var(--tw-text-opacity));
+        }
+        .w-4 {
+            width: 1rem;
+        }
+        .h-4 {
+            height: 1rem;
+        }
+        a {
+            text-decoration: inherit;
+        }
+        .pagination{
+            justify-content: center;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <div class="min-h-screen bg-gray-900">
+        <nav class="navbar navbar-expand-md navbar-light bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    WeBlog
+                    {{ config('devstarit.app_name') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav ms-auto">
 
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -71,9 +110,10 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
-            @yield('content')
+            <div class="container max-w-7xl">
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>

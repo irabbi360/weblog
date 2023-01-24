@@ -57,6 +57,27 @@
         .pagination{
             justify-content: center;
         }
+        .border-gray-600 {
+            --tw-border-opacity: 1;
+            border-color: rgb(75 85 99/var(--tw-border-opacity));
+        }
+        .border-t-2 {
+            border-top-width: 2px !important;
+        }
+        ul {
+            list-style: none;
+        }
+        .bg-gray-700 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(55 65 81/var(--tw-bg-opacity));
+            color: #fff;
+        }
+        .opacity-75 {
+            opacity: .75;
+        }
+        .border-l-2 {
+            border-left-width: 2px;
+        }
     </style>
 </head>
 <body>

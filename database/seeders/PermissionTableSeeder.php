@@ -38,7 +38,7 @@ class PermissionTableSeeder extends Seeder
             'category-delete',
             'comment-access',
             'comment-edit',
-            'category-delete'
+            'comment-delete'
         ];
 
         foreach ($permissions as $permission) {

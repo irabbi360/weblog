@@ -2,7 +2,7 @@
 
 @section('styles')
     <!-- summernote -->
-    <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 @endsection
 @section('content')
     <div class="card border-0 shadow-sm">
@@ -44,9 +44,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="Description">Description</label>
+                    <label for="summernote">Description</label>
                     <textarea type="text" class="form-control @error('description') is-invalid @enderror"
-                              name="description" id="Description" placeholder="Enter Description"></textarea>
+                              name="description" id="summernote" placeholder="Enter Description"></textarea>
                     @error('description')
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -76,13 +76,25 @@
 @endsection
 
 @section('scripts')
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- Summernote -->
-    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <script>
-        $(function () {
-            $('textarea').summernote();
-        })
+        $('#summernote').summernote({
+            placeholder: 'Hello stand alone ui',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
 
         //image upload preview
         $('#image').change(function () {

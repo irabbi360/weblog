@@ -25,7 +25,7 @@
                                     <small class="opacity-75">@</small>Admin:
                                 </a>
                             </div>
-                            <p class="ml-2 mt-2 pl-2 border-l-2 border-gray-300 border-gray-600">
+                            <p class="ms-2 mt-2 ps-2 border-l-2 border-gray-300 border-gray-600">
                                 Velit quia repellat fugit tempora voluptatibus labore quos.
                             </p>
 
@@ -36,7 +36,7 @@
                                     <small class="opacity-75">@</small>Guest:
                                 </a>
                             </div>
-                            <p class="ml-2 mt-2 pl-2 border-l-2 border-gray-300 border-gray-600">
+                            <p class="ms-2 mt-2 ps-2 border-l-2 border-gray-600">
 
                                 Eaque distinctio aliquid atque autem.
                             </p>

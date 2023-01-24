@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyRoleRequest;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
-use App\Models\Permission;
-use App\Models\Role;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\Response;
 
-class RolesController extends Controller
+class RoleController extends Controller
 {
     public function index()
     {
@@ -74,12 +73,5 @@ class RolesController extends Controller
         $role->delete();
 
         return back();
-    }
-
-    public function massDestroy(MassDestroyRoleRequest $request)
-    {
-        Role::whereIn('id', request('ids'))->delete();
-
-        return response(null, Response::HTTP_NO_CONTENT);
     }
 }

@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyPermissionRequest;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
-use App\Models\Permission;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Permission\Models\Permission;
 use Symfony\Component\HttpFoundation\Response;
 
-class PermissionsController extends Controller
+class PermissionController extends Controller
 {
     public function index()
     {
@@ -70,12 +69,5 @@ class PermissionsController extends Controller
         $permission->delete();
 
         return back();
-    }
-
-    public function massDestroy(MassDestroyPermissionRequest $request)
-    {
-        Permission::whereIn('id', request('ids'))->delete();
-
-        return response(null, Response::HTTP_NO_CONTENT);
     }
 }

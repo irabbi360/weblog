@@ -19,18 +19,27 @@
                 <div class="card-footer bg-transparent border-t-2 border-gray-600">
                     <h4 class="text-white">Comments</h4>
                     <ul>
-                        @foreach($post->comments as $comment)
+                        @forelse ($post->comments as $comment)
                         <li id="comment-1" class="rounded-lg bg-gray-200 bg-gray-700 p-4 my-4 relative group">
                             <div>
                                 <a href="#/posts?author={{ $comment->user_id }}">
-                                    <small class="opacity-75">@</small>{{ optional($comment->user)->name }}:
+                                    <small class="opacity-75">@</small>{{ optional($comment->user)->name }}: <span class="float-end">{{ $comment->created_at->diffForHumans() }}</span>
                                 </a>
                             </div>
                             <p class="ms-2 mt-2 ps-2 border-l-2 border-gray-300 border-gray-600">
                                 {{ $comment->body }}
                             </p>
                         </li>
-                        @endforeach
+                        @empty
+                            <li id="comment-1" class="rounded-lg bg-gray-200 bg-gray-700 p-4 my-4 relative group">
+                                <div>
+                                    Not Found!!
+                                </div>
+                                <p class="ms-2 mt-2 ps-2 border-l-2 border-gray-300 border-gray-600">
+                                    Sorry! No comment found for this post.
+                                </p>
+                            </li>
+                        @endforelse
                     </ul>
                 </div>
 

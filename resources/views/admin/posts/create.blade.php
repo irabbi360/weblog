@@ -10,11 +10,6 @@
         <div class="card-header">
             <h6 class="card-title">Add New Post</h6>
         </div>
-        @if(session('message'))
-            <div class="bg-success p-2 m-2">{{ session('message') }}</div>
-    @endif
-    <!-- /.card-header -->
-        <!-- form start -->
         <form role="form" method="post" action="{{ route('admin.posts.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
@@ -80,7 +75,6 @@
                 </div>
 
             </div>
-            <!-- /.card-body -->
 
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>

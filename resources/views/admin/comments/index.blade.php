@@ -7,10 +7,6 @@
                 <div class="card-header">
                     <h3 class="card-title">Comment List</h3>
                 </div>
-                @if(session('message'))
-                    <div class="bg-success">{{ session('message') }}</div>
-            @endif
-            <!-- /.card-header -->
                 <div class="card-body">
                     <table class="table table-bordered">
                         <thead>
@@ -53,7 +49,6 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- /.card-body -->
                 <div class="card-footer clearfix">
                     {{ $tags->links() }}
                 </div>

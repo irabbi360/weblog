@@ -8,10 +8,6 @@
                 <a href="{{ route('admin.tags.create') }}" class="text-white">Add New</a>
             </div>
         </div>
-        @if(session('message'))
-            <div class="bg-success">{{ session('message') }}</div>
-    @endif
-    <!-- /.card-header -->
         <div class="card-body">
             <table class="table table-bordered">
                 <thead>
@@ -54,7 +50,6 @@
                 </tbody>
             </table>
         </div>
-        <!-- /.card-body -->
         <div class="card-footer clearfix">
             {{ $tags->links() }}
         </div>

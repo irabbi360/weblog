@@ -29,6 +29,7 @@
         @include('admin.includes.sidebar')
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             @include('admin.includes.breadcrumb')
+            @include('admin.includes.flash')
             @yield('content')
         </main>
 

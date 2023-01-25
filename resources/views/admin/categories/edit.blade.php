@@ -5,11 +5,6 @@
         <div class="card-header">
             <h5 class="card-title">Edit Category #{{ $category->id }}</h5>
         </div>
-        @if(session('message'))
-            <div class="bg-success">{{ session('message') }}</div>
-    @endif
-    <!-- /.card-header -->
-        <!-- form start -->
         <form role="form" method="post" action="{{ route('admin.categories.update', $category->id) }}">
             @csrf
             {{ method_field('PUT') }}
@@ -26,7 +21,6 @@
                     @enderror
                 </div>
             </div>
-            <!-- /.card-body -->
 
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>

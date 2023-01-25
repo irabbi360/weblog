@@ -12,10 +12,10 @@
                 </header>
             </div>
             <div class="mt-4">
-                <form method="get" action="{{ route('search') }}">
+                <form method="get" action="{{ route('home.index') }}">
                     @csrf
                     <div class="input-group input-group-lg mb-3">
-                        <input type="text" name="search" placeholder="Enter keyword to search" value=""
+                        <input type="text" name="search" placeholder="Enter keyword to search"
                                class="form-control">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-primary">Search</button>

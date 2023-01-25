@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\HomeController;
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('post/{id}', [HomeController::class, 'singlePost'])->name('singlePost');
 Route::get('category/{id}', [HomeController::class, 'categoryPost'])->name('categoryPost');
 Route::get('search', [HomeController::class, 'search'])->name('search');

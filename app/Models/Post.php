@@ -70,4 +70,17 @@ class Post extends Model
     {
         return hash('sha256', "product-{$this->id}-{$this->updated_at}");
     }
+
+    public function getAllPosts($request)
+    {
+        return Post::when($request->search, function ($query) use ($request) {
+            $search = $request->search;
+
+            return $query->where('title', 'like', "%$search%")
+                ->orWhere('body', 'like', "%$search%");
+        })
+            ->with('tags', 'category', 'user')
+            ->withCount('comments')
+            ->published();
+    }
 }

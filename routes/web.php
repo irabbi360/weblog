@@ -5,7 +5,8 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('post/{id}', [HomeController::class, 'singlePost'])->name('singlePost');
-Route::get('category/{id}', [HomeController::class, 'categoryPosts'])->name('category.posts');
+Route::get('category-posts/{id}', [HomeController::class, 'categoryPosts'])->name('category.posts');
+Route::get('tag-posts/{id}', [HomeController::class, 'tagPosts'])->name('tag.posts');
 Route::get('search', [HomeController::class, 'search'])->name('search');
 Route::post('comment/{post}', [HomeController::class, 'comment'])->name('comment.save')->middleware('auth');
 

@@ -11,15 +11,7 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $posts = Post::when($request->search, function ($query) use ($request) {
-            $search = $request->search;
-
-            return $query->where('title', 'like', "%$search%")
-                ->orWhere('body', 'like', "%$search%");
-        })->with('tags', 'user')
-            ->withCount('comments')
-            ->published()
-            ->paginate(10);
+        $posts = Post::getAllPosts($request)->paginate(15);
 
         return view('welcome', compact('posts'));
     }
@@ -33,16 +25,20 @@ class HomeController extends Controller
 
     public function categoryPosts(Request $request, $id)
     {
-        $posts = Post::when($request->search, function ($query) use ($request) {
-            $search = $request->search;
+        $posts = Post::getAllPosts($request)
+            ->where('category_id', $id)
+            ->paginate(15);
 
-            return $query->where('title', 'like', "%$search%")
-                ->orWhere('body', 'like', "%$search%");
-        })->where('category_id', $id)
-            ->with('tags', 'category', 'user')
-            ->withCount('comments')
-            ->published()
-            ->paginate(10);
+        return view('welcome', compact('posts'));
+    }
+
+    public function tagPosts(Request $request, $id)
+    {
+        $posts = Post::getAllPosts($request)
+            ->whereHas('tags', function ($q) use ($id) {
+                $q->where('tag_id', $id);
+            })
+            ->paginate(15);
 
         return view('welcome', compact('posts'));
     }

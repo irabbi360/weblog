@@ -12,11 +12,11 @@
                 <div class="form-group">
                     <label for="title">Tag Name</label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
-                           value="{{ $category->title }}" id="title" placeholder="Enter Name">
+                           value="{{ $tag->title }}" id="title" placeholder="Enter Name">
                     @error('title')
                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                        <strong>{{ $message }}</strong>
+                    </span>
                     @enderror
                 </div>
             </div>

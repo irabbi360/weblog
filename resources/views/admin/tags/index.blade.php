@@ -29,7 +29,7 @@
                                 <span class="badge bg-primary">Edit</span>
                             </a>
                             <form id="delete-form-{{ $tag->id }}" method="post"
-                                  action="{{ route('admin.tags.delete', $tag->id) }}" style="display: none">
+                                  action="{{ route('admin.tags.destroy', $tag->id) }}" style="display: none">
                                 {{csrf_field()}}
                                 {{ method_field('DELETE') }}
                             </form>
@@ -43,7 +43,6 @@
                                 event.preventDefault();
                                 }">Delete
                             </a>
-                            {{--<span class="badge bg-danger">Delete</span>--}}
                         </td>
                     </tr>
                 @endforeach

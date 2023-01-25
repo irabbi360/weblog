@@ -37,6 +37,12 @@
                     Categories
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.tags.index') }}">
+                    <span data-feather="list" class="align-text-bottom"></span>
+                    Tags
+                </a>
+            </li>
         </ul>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">

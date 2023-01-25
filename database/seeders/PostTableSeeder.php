@@ -22,7 +22,7 @@ class PostTableSeeder extends Seeder
             DB::table('posts')->insert([
                 'title' => $faker->sentence(),
                 'category_id' => 1,
-                'description' => $faker->paragraph(),
+                'body' => $faker->paragraph(),
                 'created_by' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),

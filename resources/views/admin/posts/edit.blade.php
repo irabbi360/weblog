@@ -44,13 +44,13 @@
 
                 <div class="form-group">
                     <label for="summernote">Description</label>
-                    <textarea type="text" class="form-control @error('description') is-invalid @enderror"
-                              name="description" id="summernote"
-                              placeholder="Enter Description">{{ $post->description }}</textarea>
-                    @error('description')
+                    <textarea type="text" class="form-control @error('body') is-invalid @enderror"
+                              name="body" id="summernote"
+                              placeholder="Enter Description">{{ $post->body }}</textarea>
+                    @error('body')
                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                        <strong>{{ $message }}</strong>
+                    </span>
                     @enderror
                 </div>
                 <div class="mb-3">

@@ -13,7 +13,7 @@
                     <img class="card-img-top" src="{{ '/uploads/posts/'.$post->thumbnail }}" alt="Card image cap">
                     <hr>
                     <div class="post-body text-white">
-                        {!! $post->description !!}
+                        {!! $post->body !!}
                     </div>
                 </div>
                 <div class="card-footer bg-transparent border-t-2 border-gray-600">

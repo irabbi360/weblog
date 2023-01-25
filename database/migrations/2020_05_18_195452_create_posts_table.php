@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->unsignedBigInteger('category_id');
-            $table->longText('description');
+            $table->longText('body');
             $table->string('thumbnail')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->boolean('is_published')->default(false);

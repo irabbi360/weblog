@@ -8,22 +8,26 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::latest()->paginate(10);
-        $categories = Category::all();
+        $posts = Post::when($request->search, function ($query) use ($request) {
+            $search = $request->search;
 
-        return view('welcome', compact('posts','categories'));
+            return $query->where('title', 'like', "%$search%")
+                ->orWhere('body', 'like', "%$search%");
+        })->with('tags', 'category', 'user')
+            ->withCount('comments')
+            ->published()
+            ->simplePaginate(10);
+
+        return view('welcome', compact('posts'));
     }
 
-    public function singlePost($id)
+    public function singlePost(Post $post)
     {
-        $post = Post::with('user','category')->findOrFail($id);
+        $post = $post->load(['comments.user', 'tags', 'user', 'category']);
 
-        $categories = Category::all();
-
-        return view('view', compact('post','categories'));
+        return view('view', compact('post'));
     }
 
     public function categoryPost($id)

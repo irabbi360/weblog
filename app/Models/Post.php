@@ -52,12 +52,12 @@ class Post extends Model
 
     public function scopePublished($query)
     {
-        return $query->where('is_published', true);
+        return $query->where('is_published', 1);
     }
 
     public function scopeDrafted($query)
     {
-        return $query->where('is_published', false);
+        return $query->where('is_published', 0);
     }
 
     public function getPublishedAttribute()

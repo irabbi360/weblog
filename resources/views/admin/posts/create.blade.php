@@ -41,9 +41,9 @@
 
                 <div class="mb-3">
                     <label for="summernote">Description</label>
-                    <textarea type="text" class="form-control @error('description') is-invalid @enderror"
-                              name="description" id="summernote" placeholder="Enter Description"></textarea>
-                    @error('description')
+                    <textarea type="text" class="form-control @error('body') is-invalid @enderror"
+                              name="body" id="summernote" placeholder="Enter Description"></textarea>
+                    @error('body')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

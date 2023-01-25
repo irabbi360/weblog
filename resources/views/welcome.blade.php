@@ -11,18 +11,6 @@
                     <h2 class="">Latest Blog Posts</h2>
                 </header>
             </div>
-            <div class="mt-4">
-                <form method="get" action="{{ route('home.index') }}">
-                    @csrf
-                    <div class="input-group input-group-lg mb-3">
-                        <input type="text" name="search" placeholder="Enter keyword to search"
-                               class="form-control">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
             <div class="row">
                 @foreach($posts as $post)
                     <div class="col-md-4 mb-4">

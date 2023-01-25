@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCommentRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -37,19 +38,8 @@ class HomeController extends Controller
         return view('category-post', compact('category'));
     }
 
-    public function search(Request $request)
+    public function comment(StoreCommentRequest $request, Post $post)
     {
-        $search = $request->search;
-
-        $posts = Post::where('title','LIKE', "%$search%")->paginate();
-
-        return view('search', compact('posts','search'));
-    }
-
-    public function comment(Request $request, Post $post)
-    {
-        $this->validate($request, ['comment' => 'required']);
-
         $post->comments()->create([
             'body' => $request->comment,
         ]);

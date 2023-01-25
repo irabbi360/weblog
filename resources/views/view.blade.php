@@ -19,21 +19,25 @@
                 <div class="card-footer bg-transparent border-t-2 border-gray-600">
                     <h4 class="text-white">Comments</h4>
                     <div class="">
-                        <form action="{{ route('comment.save', $post->id) }}" method="post">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="comment">Comment</label>
-                                <textarea name="comment" id="comment" class="form-control @error('comment') is-invalid @enderror" cols="30" rows="3">{{ old('comment') }}</textarea>
-                                @error('comment')
-                                <span class="invalid-feedback" role="alert">
+                        @auth
+                            <form action="{{ route('comment.save', $post->id) }}" method="post">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="comment">Comment</label>
+                                    <textarea name="comment" id="comment" class="form-control @error('comment') is-invalid @enderror" cols="30" rows="3">{{ old('comment') }}</textarea>
+                                    @error('comment')
+                                    <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <button class="btn btn-primary" type="submit">Submit</button>
-                            </div>
-                        </form>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </div>
+                            </form>
+                        @else
+                            <p class="text-white-50">Need to <a href="{{ route('login') }}">login</a> for comment!</p>
+                        @endauth
                     </div>
                     <ul>
                         @forelse ($post->comments as $comment)

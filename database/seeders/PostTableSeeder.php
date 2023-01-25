@@ -24,6 +24,7 @@ class PostTableSeeder extends Seeder
                 'category_id' => 1,
                 'body' => $faker->paragraph(),
                 'created_by' => 1,
+                'is_published' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

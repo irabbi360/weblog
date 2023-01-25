@@ -6,7 +6,7 @@
             <div class="position-relative justify-content-center py-4">
                 <header class="text-center text-white">
                     <h1 class="fw-bold my-3">
-                        Laravel Blog Starter Kit
+                        {{ config('devstarit.app_desc') }}
                     </h1>
                     <h2 class="">Latest Blog Posts</h2>
                 </header>

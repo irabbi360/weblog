@@ -38,8 +38,9 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::pluck('title', 'title')->all();
 
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -56,17 +57,15 @@ class PostController extends Controller
             Image::make($image)->save(public_path('uploads/posts/'. $fileName));
         }
 
-        $post = Post::create([
-            'title' => $request->title,
-            'category_id' => $request->category,
-            'description' => $request->description,
-            'created_by' => Auth::id(),
-            'thumbnail' => $fileName,
-        ]);
+        $post = new Post();
+        $post->title = $request->title;
+        $post->category_id = $request->category;
+        $post->description = $request->description;
+        $post->thumbnail = $fileName;
 
-       if ($post){
+       if ($post->save()){
            $tagsId = collect($request->tags)->map(function ($tag) {
-               return Tag::firstOrCreate(['name' => $tag])->id;
+               return Tag::firstOrCreate(['title' => $tag])->id;
            });
 
            $post->tags()->attach($tagsId);
@@ -95,12 +94,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $post = Post::findOrfail($id);
+        $post->load('tags');
         $categories = Category::all();
+        $tags = Tag::pluck('title', 'title')->all();
 
-        return view('admin.posts.edit', compact('post','categories'));
+        return view('admin.posts.edit', compact('post','categories', 'tags'));
     }
 
     /**
@@ -110,7 +110,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
         $this->validate($request,[
             'title' => 'required',
@@ -125,14 +125,19 @@ class PostController extends Controller
             Image::make($image)->save(public_path('uploads/posts/'. $fileName));
         }
 
-        $post = Post::find($id);
         $post->title = $request->title;
         $post->category_id = $request->category;
         $post->description = $request->description;
-        $post->created_by = Auth::id();
-        $post->thumbnail = $fileName;
+        $post->thumbnail = $fileName ?? $post->thumbnail;
 
         if ($post->save()){
+
+            $tagsId = collect($request->tags)->map(function ($tag) {
+                return Tag::firstOrCreate(['title' => $tag])->id;
+            });
+
+            $post->tags()->sync($tagsId);
+
             return redirect()->back()->with('message','Post updated successfully');
         }
         return redirect()->back()->with('message','Whoops!!');
@@ -152,5 +157,13 @@ class PostController extends Controller
             return redirect()->back()->with('message','Post deleted successfully');
         }
         return redirect()->back()->with('message','Whoops!!');
+    }
+
+    public function publish(Post $post)
+    {
+        $post->is_published = ! $post->is_published;
+        $post->save();
+
+        return redirect()->back()->with('message','Post changed successfully.');
     }
 }

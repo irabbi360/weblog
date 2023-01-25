@@ -20,8 +20,8 @@ class Post extends Model
         parent::boot();
 
         static::creating(function ($post) {
-            if (is_null($post->user_id)) {
-                $post->user_id = auth()->user()->id;
+            if (is_null($post->created_by)) {
+                $post->created_by = auth()->user()->id;
             }
         });
 

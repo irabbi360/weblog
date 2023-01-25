@@ -9,8 +9,17 @@
                         <h2>{{ $post->title }}</h2>
                         <div class="text-white-50">
                             Posted By: <a href="#">{{ optional($post->user)->name }}</a>
-                            {{ $post->created_at->format('m/d/Y h:m a') }}. category: <a href="{{ route('category.posts', $post->category_id) }}">{{ optional($post->category)->title }}</a>
-                            tags: @foreach($post->tags as $tag)<a href="{{ route('tag.posts', $tag->id) }}" class="me-1">{{ $tag->title }}</a>@endforeach
+                            {{ $post->created_at->format('m/d/Y h:m a') }}. category:
+                            <a href="{{ route('category.posts', $post->category_id) }}">
+                                {{ optional($post->category)->title }}
+                            </a>
+                            @if($post->tags->count() > 0)
+                                tags: @foreach($post->tags as $tag)
+                                    <a href="{{ route('tag.posts', $tag->id) }}" class="me-1">
+                                    {{ $tag->title }}
+                                    </a>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                     <img class="card-img-top" src="{{ '/uploads/posts/'.$post->thumbnail }}" alt="">

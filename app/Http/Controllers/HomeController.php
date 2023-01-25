@@ -45,4 +45,15 @@ class HomeController extends Controller
 
         return view('search', compact('posts','search'));
     }
+
+    public function comment(Request $request, Post $post)
+    {
+        $this->validate($request, ['comment' => 'required']);
+
+        $post->comments()->create([
+            'body' => $request->comment,
+        ]);
+
+        return redirect()->back();
+    }
 }

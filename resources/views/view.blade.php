@@ -10,7 +10,7 @@
                         <strong class="float-right">Category: {{ optional($post->category)->title }}</strong>
                         <p>Created At: {{ $post->created_at->format('m/d/Y') }}</p>
                     </div>
-                    <img class="card-img-top" src="{{ '/uploads/posts/'.$post->thumbnail }}" alt="Card image cap">
+                    <img class="card-img-top" src="{{ '/uploads/posts/'.$post->thumbnail }}" alt="">
                     <hr>
                     <div class="post-body text-white">
                         {!! $post->body !!}
@@ -18,6 +18,23 @@
                 </div>
                 <div class="card-footer bg-transparent border-t-2 border-gray-600">
                     <h4 class="text-white">Comments</h4>
+                    <div class="">
+                        <form action="{{ route('comment.save', $post->id) }}" method="post">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="comment">Comment</label>
+                                <textarea name="comment" id="comment" class="form-control @error('comment') is-invalid @enderror" cols="30" rows="3">{{ old('comment') }}</textarea>
+                                @error('comment')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                     <ul>
                         @forelse ($post->comments as $comment)
                         <li id="comment-1" class="rounded-lg bg-gray-200 bg-gray-700 p-4 my-4 relative group">

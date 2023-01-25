@@ -18,14 +18,14 @@ class HomeController extends Controller
         })->with('tags', 'category', 'user')
             ->withCount('comments')
             ->published()
-            ->simplePaginate(10);
+            ->paginate(10);
 
         return view('welcome', compact('posts'));
     }
 
-    public function singlePost(Post $post)
+    public function singlePost($id)
     {
-        $post = $post->load(['comments.user', 'tags', 'user', 'category']);
+        $post = Post::with('comments.user', 'tags', 'user', 'category')->findOrFail($id);
 
         return view('view', compact('post'));
     }

@@ -16,7 +16,7 @@ class HomeController extends Controller
 
             return $query->where('title', 'like', "%$search%")
                 ->orWhere('body', 'like', "%$search%");
-        })->with('tags', 'category', 'user')
+        })->with('tags', 'user')
             ->withCount('comments')
             ->published()
             ->paginate(10);
@@ -28,14 +28,23 @@ class HomeController extends Controller
     {
         $post = Post::with('comments.user', 'tags', 'user', 'category')->findOrFail($id);
 
-        return view('view', compact('post'));
+        return view('blog.post', compact('post'));
     }
 
-    public function categoryPost($id)
+    public function categoryPosts(Request $request, $id)
     {
-        $category = Category::with('posts')->findOrFail($id);
+        $posts = Post::when($request->search, function ($query) use ($request) {
+            $search = $request->search;
 
-        return view('category-post', compact('category'));
+            return $query->where('title', 'like', "%$search%")
+                ->orWhere('body', 'like', "%$search%");
+        })->where('category_id', $id)
+            ->with('tags', 'category', 'user')
+            ->withCount('comments')
+            ->published()
+            ->paginate(10);
+
+        return view('welcome', compact('posts'));
     }
 
     public function comment(StoreCommentRequest $request, Post $post)

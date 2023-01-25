@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
@@ -60,7 +61,7 @@ class PostController extends Controller
         $post = new Post();
         $post->title = $request->title;
         $post->category_id = $request->category;
-        $post->description = $request->description;
+        $post->body = $request->description;
         $post->thumbnail = $fileName;
 
        if ($post->save()){
@@ -110,15 +111,8 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        $this->validate($request,[
-            'title' => 'required',
-            //'image' => 'required',
-            'category' => 'required',
-            'description' => 'required',
-        ]);
-
         if ($request->hasFile('image')){
             $image = $request->file('image');
             $fileName = time().'.'. $image->getClientOriginalExtension();
@@ -127,11 +121,10 @@ class PostController extends Controller
 
         $post->title = $request->title;
         $post->category_id = $request->category;
-        $post->description = $request->description;
+        $post->body = $request->description;
         $post->thumbnail = $fileName ?? $post->thumbnail;
 
         if ($post->save()){
-
             $tagsId = collect($request->tags)->map(function ($tag) {
                 return Tag::firstOrCreate(['title' => $tag])->id;
             });
@@ -140,7 +133,7 @@ class PostController extends Controller
 
             return redirect()->back()->with('message','Post updated successfully');
         }
-        return redirect()->back()->with('message','Whoops!!');
+        return redirect()->back()->with('error','Whoops!!');
     }
 
     /**

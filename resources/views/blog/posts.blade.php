@@ -1,69 +1,37 @@
-<div class="row justify-content-center mt-4">
-    <div class="col-md-8 mb-3">
-        <div class="card mb-4 bg-dark shadow-sm">
-            <div class="card-body">
-                <div class="author text-white">
-                    <h2>{{ $post->title }}</h2>
-                    <div class="text-white-50">
-                        Posted By: <a href="#">{{ optional($post->user)->name }}</a>
-                        {{ $post->created_at->format('m/d/Y h:m a') }}. category: <a href="{{ route('category.posts', $post->category_id) }}">{{ optional($post->category)->title }}</a>
-                        tags: @foreach($post->comments as $comment)<a href="#">{{ $comment->title }}</a>@endforeach
+<div class="row">
+    @foreach($posts as $post)
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm bg-dark rounded-3 h-100">
+                {{--<img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22288%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20288%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16ac078098d%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A14pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16ac078098d%22%3E%3Crect%20width%3D%22288%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2296.8359375%22%20y%3D%22118.8%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">--}}
+                <a href="{{ route('singlePost', $post->id) }}">
+                    <img class="card-img-top" data-src="{{ 'uploads/posts/'.$post->thumbnail }}"
+                         alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;"
+                         src="https://picsum.photos/seed/16/960/640" data-holder-rendered="true">
+                </a>
+                <div class="card-body">
+                    <a href="{{ route('singlePost', $post->id) }}">
+                        <h3 class="card-text">{{ $post->title }}</h3>
+                    </a>
+                    <p class="text-gray-400">By <a href="#">{{ optional($post->user)->name }}</a> <span>{{ $post->created_at->format('m/d/Y') }}</span> <span class="d-inline float-end">{{ $post->comments_count }}</span> </p>
+                    <p class="text-gray-400">{{ Str::limit(strip_tags($post->body), 50) }}</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{{ route('singlePost', $post->id) }}"
+                               class="btn btn-sm btn-primary text-white">Read more
+                                <svg class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </a>
+                        </div>
+                        <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
                     </div>
                 </div>
-                <img class="card-img-top" src="{{ '/uploads/posts/'.$post->thumbnail }}" alt="">
-                <hr>
-                <div class="post-body text-white">
-                    {!! $post->body !!}
-                </div>
             </div>
-            <div class="card-footer bg-transparent border-t-2 border-gray-600">
-                <h4 class="text-white">Comments</h4>
-                <div class="">
-                    @auth
-                        <form action="{{ route('comment.save', $post->id) }}" method="post">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="comment">Comment</label>
-                                <textarea name="comment" id="comment" class="form-control @error('comment') is-invalid @enderror" cols="30" rows="3">{{ old('comment') }}</textarea>
-                                @error('comment')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <button class="btn btn-primary" type="submit">Submit</button>
-                            </div>
-                        </form>
-                    @else
-                        <p class="text-white-50">Need to <a href="{{ route('login') }}">login</a> for comment!</p>
-                    @endauth
-                </div>
-                <ul>
-                    @forelse ($post->comments as $comment)
-                        <li id="comment-1" class="rounded-lg bg-gray-200 bg-gray-700 p-4 my-4 relative group">
-                            <div>
-                                <a href="#/posts?author={{ $comment->user_id }}">
-                                    <small class="opacity-75">@</small>{{ optional($comment->user)->name }}: <span class="float-end">{{ $comment->created_at->diffForHumans() }}</span>
-                                </a>
-                            </div>
-                            <p class="ms-2 mt-2 ps-2 border-l-2 border-gray-300 border-gray-600">
-                                {{ $comment->body }}
-                            </p>
-                        </li>
-                    @empty
-                        <li id="comment-1" class="rounded-lg bg-gray-200 bg-gray-700 p-4 my-4 relative group">
-                            <div>
-                                Not Found!!
-                            </div>
-                            <p class="ms-2 mt-2 ps-2 border-l-2 border-gray-300 border-gray-600">
-                                Sorry! No comment found for this post.
-                            </p>
-                        </li>
-                    @endforelse
-                </ul>
-            </div>
-
         </div>
-    </div>
+    @endforeach
+</div>
+<div class="justify-content-center text-center">
+    {{ $posts->links() }}
 </div>

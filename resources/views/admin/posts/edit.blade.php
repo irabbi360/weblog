@@ -15,39 +15,40 @@
             @csrf
             {{ method_field('PUT') }}
             <div class="card-body">
-                <div class="form-group">
+                <div class="mb-3">
                     <label for="title">Title</label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
                            value="{{ $post->title }}" id="title" placeholder="Enter Name">
                     @error('title')
                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                        <strong>{{ $message }}</strong>
+                    </span>
                     @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="mb-3">
                     <label for="title">Category</label>
-                    <select name="category" class="form-control">
+                    <select name="category" class="form-control @error('category') is-invalid @enderror">
                         <option selected>Select Once</option>
                         @foreach($categories as $category)
-                            <option
-                                value="{{ $category->id }}" {{ $post->category_id == $category->id ? 'selected' : '' }}>{{ $category->title }}</option>
+                            <option value="{{ $category->id }}" {{ $post->category_id == $category->id ? 'selected' : '' }}>
+                                {{ $category->title }}
+                            </option>
                         @endforeach
                     </select>
-                    @error('title')
+                    @error('category')
                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                        <strong>{{ $message }}</strong>
+                    </span>
                     @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="mb-3">
                     <label for="summernote">Description</label>
-                    <textarea type="text" class="form-control @error('body') is-invalid @enderror"
-                              name="body" id="summernote"
+                    <textarea type="text" class="form-control @error('description') is-invalid @enderror"
+                              name="description" id="summernote"
                               placeholder="Enter Description">{{ $post->body }}</textarea>
-                    @error('body')
+                    @error('description')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -74,8 +75,8 @@
                            id="image">
                     @error('image')
                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                        <strong>{{ $message }}</strong>
+                    </span>
                     @enderror
                 </div>
 

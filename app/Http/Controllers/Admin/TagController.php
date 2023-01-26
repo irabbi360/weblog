@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class TagController extends Controller
 {
@@ -15,6 +17,8 @@ class TagController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('tag_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $tags = Tag::paginate(10);
 
         return view('admin.tags.index', compact('tags'));
@@ -27,6 +31,8 @@ class TagController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('tag_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('admin.tags.create');
     }
 
@@ -38,6 +44,8 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
+        abort_if(Gate::denies('tag_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         Tag::create(['title' => $request->title]);
 
         return redirect('/admin/tags')->with('message','Tag created successfully');
@@ -62,6 +70,8 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
+        abort_if(Gate::denies('tag_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('admin.tags.edit', compact('tag'));
     }
 
@@ -72,13 +82,15 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tag $tag)
     {
+        abort_if(Gate::denies('tag_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $this->validate($request, ['title' => 'required']);
 
         $tag->update($request->all());
-        
-        return redirect('/admin/tags')->with('message','Tag updated successfully');
+
+        return redirect()->route('admin.tags.index')->with('message','Tag updated successfully');
     }
 
     /**
@@ -89,6 +101,8 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
+        abort_if(Gate::denies('tag_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $tag->delete();
 
         return redirect()->back()->with('message', 'Tag deleted successfully.');

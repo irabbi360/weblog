@@ -10,15 +10,12 @@ use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Intervention\Image\Facades\Image;
+use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -26,6 +23,8 @@ class PostController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $posts = Post::with('category','user')->orderBy('id','desc')->paginate();
 
         return view('admin.posts.index',compact('posts'));
@@ -38,6 +37,8 @@ class PostController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('post_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $categories = Category::all();
         $tags = Tag::pluck('title', 'title')->all();
 
@@ -52,6 +53,8 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+        abort_if(Gate::denies('post_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         if ($request->hasFile('image')){
             $image = $request->file('image');
             $fileName = time().'.'. $image->getClientOriginalExtension();
@@ -97,6 +100,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        abort_if(Gate::denies('post_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $post->load('tags');
         $categories = Category::all();
         $tags = Tag::pluck('title', 'title')->all();
@@ -113,6 +118,8 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
+        abort_if(Gate::denies('post_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         if ($request->hasFile('image')){
             $image = $request->file('image');
             $fileName = time().'.'. $image->getClientOriginalExtension();
@@ -144,6 +151,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
+        abort_if(Gate::denies('post_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $post = Post::findOrFail($id);
 
         if ($post->delete()){

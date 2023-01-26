@@ -5,13 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +17,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $categories = Category::paginate();
+
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -30,6 +31,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('admin.categories.create');
     }
 
@@ -41,6 +44,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        abort_if(Gate::denies('category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $this->validate($request,[
             'title' => 'required'
         ]);
@@ -72,6 +77,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $category = Category::findOrFail($id);
 
         return view('admin.categories.edit', compact('category'));
@@ -86,6 +93,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        abort_if(Gate::denies('category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $this->validate($request,[
             'title' =>'required'
         ]);
@@ -106,6 +115,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        abort_if(Gate::denies('category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $category = Category::findOrFail($id);
 
         $done = $category->delete();

@@ -146,3 +146,13 @@ body {
 a {
     text-decoration: none !important;
 }
+main .card{
+    border: none;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+main .card .card-header{
+    background: transparent;
+}
+main .card .card-footer{
+    background: transparent;
+}

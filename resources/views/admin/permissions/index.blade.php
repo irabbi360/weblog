@@ -2,7 +2,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <div class="float-left">
+            <div class="float-start">
                 Permission List
             </div>
             @can('permission_create')
@@ -16,7 +16,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class=" table datatable datatable-Permission">
+                <table class="table">
                     <thead>
                     <tr>
                         <th width="10">
@@ -29,7 +29,7 @@
                             Title
                         </th>
                         <th>
-                            &nbsp;
+                            Action
                         </th>
                     </tr>
                     </thead>
@@ -46,28 +46,27 @@
                                 {{ $permission->name ?? '' }}
                             </td>
                             <td>
-                                @can('permission_show')
-                                    <a class="btn btn-xs btn-primary text-white"
-                                       href="{{ route('admin.permissions.show', $permission->id) }}">
-                                        View
-                                    </a>
-                                @endcan
-
                                 @can('permission_edit')
-                                    <a class="btn btn-xs btn-info"
+                                    <a class="badge bg-info"
                                        href="{{ route('admin.permissions.edit', $permission->id) }}">
                                         Edit
                                     </a>
                                 @endcan
 
                                 @can('permission_delete')
-                                    <form action="{{ route('admin.permissions.destroy', $permission->id) }}"
-                                          method="POST" onsubmit="return confirm('Are You Sure!');"
-                                          style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                                    <form id="delete-form-{{ $permission->id }}" method="post"
+                                          action="{{ route('admin.permissions.destroy', $permission->id) }}"
+                                          style="display: none">
+                                        {{csrf_field()}}
+                                        {{ method_field('DELETE') }}
                                     </form>
+                                    <a href="javascript:void(0)" class="badge bg-danger text-white" onclick="
+                                        if(confirm('Are you sure, You want to Delete this ??'))
+                                        {
+                                        event.preventDefault();
+                                        document.getElementById('delete-form-{{ $permission->id }}').submit();
+                                        }">Delete
+                                    </a>
                                 @endcan
 
                             </td>
@@ -77,8 +76,6 @@
                     </tbody>
                 </table>
             </div>
-
-
         </div>
     </div>
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-    <div class="card border-0 shadow-sm">
+    <div class="card">
         <div class="card-header">
             Role List
             @can('role_create')
@@ -13,12 +13,9 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table datatable datatable-Role">
+                <table class="table">
                     <thead>
                     <tr>
-                        <th width="10">
-
-                        </th>
                         <th>
                             ID
                         </th>
@@ -29,16 +26,13 @@
                             Permissions
                         </th>
                         <th>
-                            &nbsp;
+                            Action
                         </th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($roles as $key => $role)
                         <tr data-entry-id="{{ $role->id }}">
-                            <td>
-
-                            </td>
                             <td>
                                 {{ $role->id ?? '' }}
                             </td>
@@ -58,19 +52,23 @@
                                 @endcan
 
                                 @can('role_edit')
-                                    <a class="btn btn-xs btn-info mb-1 text-white" href="{{ route('admin.roles.edit', $role->id) }}">
+                                    <a class="badge bg-info" href="{{ route('admin.roles.edit', $role->id) }}">
                                         Edit
                                     </a>
                                 @endcan
 
                                 @can('role_delete')
-                                    <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST"
-                                          onsubmit="return confirm('Are You Sure! Want to delete this?');"
-                                          style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger text-white"
-                                               value="Delete">
+                                    <a href="javascript:void(0)" class="badge bg-danger text-white" onclick="
+                                        if(confirm('Are you sure, You want to Delete this ??'))
+                                        {
+                                        event.preventDefault();
+                                        document.getElementById('delete-form-{{ $role->id }}').submit();
+                                        }">Delete
+                                    </a>
+                                    <form id="delete-form-{{ $role->id }}" method="post"
+                                          action="{{ route('admin.roles.destroy', $role->id) }}" style="display: none">
+                                        {{csrf_field()}}
+                                        {{ method_field('DELETE') }}
                                     </form>
                                 @endcan
 
@@ -81,6 +79,9 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+        <div class="card-footer clearfix">
+            {{ $roles->links() }}
         </div>
     </div>
 @endsection

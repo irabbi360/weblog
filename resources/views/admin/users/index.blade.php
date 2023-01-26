@@ -1,14 +1,14 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="card border-0 shadow-sm">
+    <div class="card">
         <div class="card-header">
             User List
         </div>
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table datatable datatable-Role">
+                <table class="table">
                     <thead>
                     <tr>
                         <th>
@@ -52,8 +52,10 @@
                     @endforeach
                     </tbody>
                 </table>
-                {{ $users->links() }}
             </div>
+        </div>
+        <div class="card-footer clearfix">
+            {{ $users->links() }}
         </div>
     </div>
 @endsection

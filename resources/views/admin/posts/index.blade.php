@@ -9,56 +9,54 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Title</th>
-                    <th>Thumbnail</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>CreatedBy</th>
-                    <th>Created At</th>
-                    <th style="width: 40px">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($posts as $post)
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                     <tr>
-                        <td>{{ $post->id }}</td>
-                        <td>{{ $post->title }}</td>
-                        <td><img src="{{ 'uploads/posts/'.$post->thumbnail }}"
-                                 style="width: 50px; height: 50px"></td>
-                        <td>{{ $post->category->title }}</td>
-                        <td>{{ strip_tags($post->body) }}</td>
-                        <td>{{ optional($post->user)->name }}</td>
-                        <td>{{ $post->created_at->diffForHumans() }}</td>
-                        <td>
-                            <a href="{{ route('admin.posts.edit', $post->id) }}">
-                                <span class="badge bg-primary">Edit</span>
-                            </a>
-                            <form id="delete-form-{{ $post->id }}" method="post"
-                                  action="{{ route('admin.posts.destroy', $post->id) }}" style="display: none">
-                                {{csrf_field()}}
-                                {{ method_field('DELETE') }}
-                            </form>
-                            <a href="" class="badge bg-danger text-white" onclick="
-                                if(confirm('Are you sure, You want to Delete this ??'))
-                                {
-                                event.preventDefault();
-                                document.getElementById('delete-form-{{ $post->id }}').submit();
-                                }
-                                else {
-                                event.preventDefault();
-                                }">Delete
-                            </a>
-                        </td>
+                        <th style="width: 10px">#</th>
+                        <th>Title</th>
+                        <th>Thumbnail</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>CreatedBy</th>
+                        <th>Created At</th>
+                        <th style="width: 40px">Action</th>
                     </tr>
-                @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    @foreach($posts as $post)
+                        <tr>
+                            <td>{{ $post->id }}</td>
+                            <td>{{ $post->title }}</td>
+                            <td><img src="{{ 'uploads/posts/'.$post->thumbnail }}"
+                                     style="width: 50px; height: 50px"></td>
+                            <td>{{ $post->category->title }}</td>
+                            <td>{{ strip_tags($post->body) }}</td>
+                            <td>{{ optional($post->user)->name }}</td>
+                            <td>{{ $post->created_at->diffForHumans() }}</td>
+                            <td>
+                                <a href="{{ route('admin.posts.edit', $post->id) }}">
+                                    <span class="badge bg-primary">Edit</span>
+                                </a>
+                                <form id="delete-form-{{ $post->id }}" method="post"
+                                      action="{{ route('admin.posts.destroy', $post->id) }}" style="display: none">
+                                    {{csrf_field()}}
+                                    {{ method_field('DELETE') }}
+                                </form>
+                                <a href="javascript:void(0)" class="badge bg-danger text-white" onclick="
+                                    if(confirm('Are you sure, You want to Delete this ??'))
+                                    {
+                                    event.preventDefault();
+                                    document.getElementById('delete-form-{{ $post->id }}').submit();
+                                    }">Delete
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <!-- /.card-body -->
         <div class="card-footer clearfix">
             {{ $posts->links() }}
         </div>

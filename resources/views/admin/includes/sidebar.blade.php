@@ -18,7 +18,7 @@
             @can('permission_access')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.permissions.index') }}">
-                    <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+                    <span data-feather="shield" class="align-text-bottom"></span>
                     Permissions
                 </a>
             </li>
@@ -26,7 +26,7 @@
             @can('role_access')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.roles.index') }}">
-                    <span data-feather="list" class="align-text-bottom"></span>
+                    <span data-feather="disc" class="align-text-bottom"></span>
                     Roles
                 </a>
             </li>
@@ -66,19 +66,19 @@
         <ul class="nav flex-column mb-2">
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <span data-feather="file-text" class="align-text-bottom"></span>
+                    <span data-feather="settings" class="align-text-bottom"></span>
                     App Setting
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <span data-feather="file-text" class="align-text-bottom"></span>
+                    <span data-feather="user" class="align-text-bottom"></span>
                     Profile
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <span data-feather="file-text" class="align-text-bottom"></span>
+                    <span data-feather="key" class="align-text-bottom"></span>
                     Change Password
                 </a>
             </li>

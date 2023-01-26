@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-    <div class="card shadow-sm">
+    <div class="card border-0 shadow-sm">
         <div class="card-header">
             Role List
             @can('role_create')

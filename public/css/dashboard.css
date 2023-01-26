@@ -156,3 +156,20 @@ main .card .card-header{
 main .card .card-footer{
     background: transparent;
 }
+@media (min-width: 992px){
+    .dropdown-menu-lg-start[data-bs-popper] {
+        left: auto;
+        right: 0;
+    }
+}
+@media (max-width: 767.98px) {
+    .sidebar {
+        top: 0;
+    }
+}
+.dropdown-menu[data-bs-popper] {
+    left: auto;
+    right: 0;
+    margin-top: var(--bs-dropdown-spacer);
+    top: 100%;
+}

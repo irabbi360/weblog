@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->string('thumbnail')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->boolean('is_published')->default(false);
+            $table->bigInteger('read_count')->default(0);
             $table->timestamps();
         });
     }

@@ -6,6 +6,8 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Cookie;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -19,6 +21,11 @@ class HomeController extends Controller
     public function singlePost($id)
     {
         $post = Post::with('comments.user', 'tags', 'user', 'category')->findOrFail($id);
+        $key = 'blog_post_' . $post->id;
+        if (!session($key)) {
+            Session::put($key, 1);
+            $post->incrementReadCount();
+        }
 
         return view('blog.post', compact('post'));
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cookie;
 
 class Post extends Model
 {
@@ -13,6 +14,7 @@ class Post extends Model
         'user_id',
         'category_id',
         'is_published',
+        'read_count',
     ];
 
     protected static function boot()
@@ -76,5 +78,11 @@ class Post extends Model
             ->with('tags', 'category', 'user')
             ->withCount('comments')
             ->published();
+    }
+
+    public function incrementReadCount()
+    {
+        $this->read_count++;
+        return $this->save();
     }
 }

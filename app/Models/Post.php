@@ -70,7 +70,7 @@ class Post extends Model
 
     public function getAllPosts($request)
     {
-        return self::when($request->search, function ($query) use ($request) {
+        return self::latest()->when($request->search, function ($query) use ($request) {
             $search = $request->search;
             return $query->where('title', 'like', "%$search%")
                 ->orWhere('body', 'like', "%$search%");

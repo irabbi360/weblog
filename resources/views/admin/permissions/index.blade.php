@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.master')
 @section('content')
     <div class="card">
         <div class="card-header">
@@ -43,7 +43,7 @@
                                 {{ $permission->id ?? '' }}
                             </td>
                             <td>
-                                {{ $permission->title ?? '' }}
+                                {{ $permission->name ?? '' }}
                             </td>
                             <td>
                                 @can('permission_show')

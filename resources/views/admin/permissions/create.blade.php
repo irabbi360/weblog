@@ -1,7 +1,7 @@
-@extends('layouts.admin')
+@extends('layouts.master')
 @section('content')
 
-<div class="card">
+<div class="card border-0 shadow-sm">
     <div class="card-header">
         Create Permission
     </div>
@@ -9,12 +9,12 @@
     <div class="card-body">
         <form action="{{ route("admin.permissions.store") }}" method="POST" enctype="multipart/form-data" id="permission-create-form">
             @csrf
-            <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
-                <label for="title">Title*</label>
-                <input type="text" id="title" name="title" class="form-control" value="{{ old('title', isset($permission) ? $permission->title : '') }}" required>
-                @if($errors->has('title'))
+            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                <label for="title">Name*</label>
+                <input type="text" id="title" name="name" class="form-control" value="{{ old('name', isset($permission) ? $permission->name : '') }}" required>
+                @if($errors->has('name'))
                     <em class="invalid-feedback">
-                        {{ $errors->first('title') }}
+                        {{ $errors->first('name') }}
                     </em>
                 @endif
             </div>

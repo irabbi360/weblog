@@ -30,7 +30,7 @@ class PermissionController extends Controller
     public function store(StorePermissionRequest $request)
     {
         $permission = new Permission();
-        $permission->title = $request->title;
+        $permission->name = $request->name;
 
         if ($permission->save()) {
             toast('Permission successfully created!','success');

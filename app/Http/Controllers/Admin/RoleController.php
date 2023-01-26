@@ -42,7 +42,7 @@ class RoleController extends Controller
     {
         abort_if(Gate::denies('role_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $permissions = Permission::all()->pluck('title', 'id');
+        $permissions = Permission::all()->pluck('name', 'id');
 
         $role->load('permissions');
 

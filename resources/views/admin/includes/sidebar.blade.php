@@ -7,42 +7,54 @@
                     Dashboard
                 </a>
             </li>
+            @can('user_access')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.users.index') }}">
                     <span data-feather="users" class="align-text-bottom"></span>
                     Users
                 </a>
             </li>
+            @endcan
+            @can('permission_access')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.permissions.index') }}">
                     <span data-feather="bar-chart-2" class="align-text-bottom"></span>
                     Permissions
                 </a>
             </li>
+            @endcan
+            @can('role_access')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.roles.index') }}">
                     <span data-feather="list" class="align-text-bottom"></span>
                     Roles
                 </a>
             </li>
+            @endcan
+            @can('post_access')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.posts.index') }}">
                     <span data-feather="file" class="align-text-bottom"></span>
                     Posts
                 </a>
             </li>
+            @endcan
+            @can('category_access')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.categories.index') }}">
                     <span data-feather="list" class="align-text-bottom"></span>
                     Categories
                 </a>
             </li>
+            @endcan
+            @can('tag_access')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.tags.index') }}">
                     <span data-feather="list" class="align-text-bottom"></span>
                     Tags
                 </a>
             </li>
+            @endcan
         </ul>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
@@ -56,6 +68,18 @@
                 <a class="nav-link" href="#">
                     <span data-feather="file-text" class="align-text-bottom"></span>
                     App Setting
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <span data-feather="file-text" class="align-text-bottom"></span>
+                    Profile
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <span data-feather="file-text" class="align-text-bottom"></span>
+                    Change Password
                 </a>
             </li>
         </ul>

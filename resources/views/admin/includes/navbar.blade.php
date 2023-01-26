@@ -10,7 +10,7 @@
         </div>
     </div>--}}
     <div class="dropdown me-3">
-        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <a href="javascript:void(0)" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             {{ auth()->user()->name }}
         </a>
         <ul class="dropdown-menu dropdown-menu-lg-start border-0 shadow-sm rounded-0">

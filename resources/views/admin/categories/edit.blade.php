@@ -13,11 +13,11 @@
                     <label for="title">Title</label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror"
                            name="title" value="{{ $category->title }}" id="title"
-                           placeholder="Enter Name">
+                           placeholder="Enter title">
                     @error('title')
                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                        <strong>{{ $message }}</strong>
+                    </span>
                     @enderror
                 </div>
             </div>

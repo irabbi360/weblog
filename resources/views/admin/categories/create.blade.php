@@ -9,13 +9,13 @@
             @csrf
             <div class="card-body">
                 <div class="form-group">
-                    <label for="title">Category Name</label>
+                    <label for="title">Title</label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror"
-                           name="title" id="title" placeholder="Enter Name">
+                           name="title" value="{{ old('title') }}" id="title" placeholder="Enter title">
                     @error('title')
                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                        <strong>{{ $message }}</strong>
+                    </span>
                     @enderror
                 </div>
             </div>

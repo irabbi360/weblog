@@ -33,5 +33,7 @@ class UsersTableSeeder extends Seeder
         $role->syncPermissions($permissions);
 
         $user->assignRole([$role->id]);
+
+        Role::create(['name' => 'Author']);
     }
 }

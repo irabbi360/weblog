@@ -7,25 +7,25 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route("admin.permissions.update", [$permission->id]) }}" method="POST" enctype="multipart/form-data" id="permission-update-form">
+        <form action="{{ route("admin.permissions.update", [$permission->id]) }}" method="POST">
             @csrf
             @method('PUT')
-            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+            <div class="mb-2">
                 <label for="title">Title*</label>
-                <input type="text" id="title" name="name" class="form-control" value="{{ old('name', isset($permission) ? $permission->name : '') }}" required>
-                @if($errors->has('name'))
-                    <em class="invalid-feedback">
-                        {{ $errors->first('name') }}
-                    </em>
-                @endif
-            </div>
-            <div>
-                <button class="btn btn-primary me-2" type="submit">Update</button>
-                <a class="btn btn-secondary" href="{{ route('admin.permissions.index') }}">
-                    Back to list
-                </a>
+                <input type="text" id="title" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', isset($permission) ? $permission->name : '') }}" required>
+                @error('name'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
         </form>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-primary me-2" type="submit">Update</button>
+        <a class="btn btn-secondary" href="{{ route('admin.permissions.index') }}">
+            Back to list
+        </a>
     </div>
 </div>
 @endsection

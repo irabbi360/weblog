@@ -69,11 +69,11 @@
                 </div>
                 <img src="{{ url('uploads/posts/', $post->thumbnail) }}" id="image-preview"
                      style="max-height: 150px;">
-                <div class="form-group">
-                    <label for="image">Upload Image</label>
-                    <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
-                           id="image">
-                    @error('image')
+                <div class="mb-3">
+                    <label for="thumbnail">Upload Thumbnail</label>
+                    <input type="file" class="form-control @error('thumbnail') is-invalid @enderror" name="thumbnail"
+                           id="thumbnail">
+                    @error('thumbnail')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

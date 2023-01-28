@@ -121,10 +121,10 @@ class PostController extends Controller
     {
         abort_if(Gate::denies('post_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        if ($request->hasFile('image')){
-            $image = $request->file('image');
-            $fileName = time().'.'. $image->getClientOriginalExtension();
-            Image::make($image)->save(public_path('uploads/posts/'. $fileName));
+        if ($request->hasFile('thumbnail')){
+            $thumbnail = $request->file('thumbnail');
+            $fileName = time().'.'. $thumbnail->getClientOriginalExtension();
+            Image::make($thumbnail)->save(public_path('uploads/posts/'. $fileName));
         }
 
         $post->title = $request->title;

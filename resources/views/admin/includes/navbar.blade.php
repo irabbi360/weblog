@@ -14,8 +14,8 @@
             {{ auth()->user()->name }}
         </a>
         <ul class="dropdown-menu dropdown-menu-lg-start border-0 shadow-sm rounded-0">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Change Password</a></li>
+            <li><a class="dropdown-item" href="{{ route('admin.profile.index') }}">Profile</a></li>
+            <li><a class="dropdown-item" href="{{ route('admin.password.index') }}">Change Password</a></li>
             <li><hr class="dropdown-divider"></li>
             <li>
                 <a class="dropdown-item" href="{{ route('logout') }}"

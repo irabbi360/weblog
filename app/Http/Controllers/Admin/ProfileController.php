@@ -14,9 +14,9 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        $profile = Auth::user();
 
-        return view('admin.profile.edit', compact('user'));
+        return view('admin.profile.edit', compact('profile'));
     }
 
     public function update(UpdateProfileRequest $request)
@@ -38,14 +38,19 @@ class ProfileController extends Controller
 
     public function updatePassword(ChangePasswordRequest $request)
     {
-        $password = $request->password;
+        #Match The Old Password
+        if (!Hash::check($request->old_password, auth()->user()->password)) {
+            return back()->with("error", "Old Password Doesn't match!");
+        }
 
-        $user = Auth::user();
-        $user->password = Hash::make($password);
+        #Update the new Password
+        $updated = User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
 
-        if ($user->save()) {
+        if ($updated) {
             return redirect()->back()->with('message', 'Password changed successfully!');
-        }else{
+        } else {
             return redirect()->back()->with('error', 'Profile change fail!');
         }
     }

@@ -90,3 +90,13 @@ Breadcrumbs::for('admin.permissions.edit', function (BreadcrumbTrail $trail, Per
 
     $trail->push($post->name, route('admin.permissions.edit', $post));
 });
+// profile
+Breadcrumbs::for('admin.profile.index', function (BreadcrumbTrail $trail): void {
+    $trail->parent('admin.index');
+    $trail->push('Profile', route('admin.profile.index'));
+});
+// change password
+Breadcrumbs::for('admin.password.index', function (BreadcrumbTrail $trail): void {
+    $trail->parent('admin.index');
+    $trail->push('Change Password', route('admin.password.index'));
+});

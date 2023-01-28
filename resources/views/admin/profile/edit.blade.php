@@ -7,26 +7,26 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route("admin.permissions.update", [$permission->id]) }}" method="POST" enctype="multipart/form-data" id="permission-update-form">
+        <form action="{{ route('admin.profile.update') }}" method="POST">
             @csrf
             @method('PUT')
-            <div class="mb-3 {{ $errors->has('name') ? 'has-error' : '' }}">
-                <label for="title">Title*</label>
-                <input type="text" id="title" name="name" class="form-control" value="{{ old('name', isset($permission) ? $permission->name : '') }}" required>
-                @if($errors->has('name'))
-                    <em class="invalid-feedback">
-                        {{ $errors->first('name') }}
-                    </em>
-                @endif
+            <div class="mb-3">
+                <label for="title">Name*</label>
+                <input type="text" id="title" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', isset($profile) ? $profile->name : '') }}" required>
+                @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
-            <div class="mb-3 {{ $errors->has('email') ? 'has-error' : '' }}">
-                <label for="email">Title*</label>
-                <input type="email" id="email" name="email" class="form-control" value="{{ old('email', isset($permission) ? $permission->email : '') }}" required>
-                @if($errors->has('email'))
-                    <em class="invalid-feedback">
-                        {{ $errors->first('email') }}
-                    </em>
-                @endif
+            <div class="mb-3">
+                <label for="email">Email*</label>
+                <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', isset($profile) ? $profile->email : '') }}" required>
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div>
                 <button class="btn btn-primary me-2" type="submit">Update</button>

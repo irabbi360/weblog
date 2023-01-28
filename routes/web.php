@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('post/{id}', [HomeController::class, 'singlePost'])->name('singlePost');
@@ -22,4 +25,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('posts', PostController::class);
+    // profile
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('profile-update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('change-password', [ProfileController::class, 'password'])->name('password.index');
+    Route::put('update-password', [ProfileController::class, 'updatePassword'])->name('password.update');
 });

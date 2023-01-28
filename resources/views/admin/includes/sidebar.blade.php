@@ -71,13 +71,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ (request()->is('admin/profile')) ? 'active' : '' }}" href="#">
+                <a class="nav-link {{ (request()->is('admin/profile')) ? 'active' : '' }}" href="{{ route('admin.profile.index') }}">
                     <span data-feather="user" class="align-text-bottom"></span>
                     Profile
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ (request()->is('admin/change-pass')) ? 'active' : '' }}" href="#">
+                <a class="nav-link {{ (request()->is('admin/change-password')) ? 'active' : '' }}" href="{{ route('admin.password.index') }}">
                     <span data-feather="key" class="align-text-bottom"></span>
                     Change Password
                 </a>

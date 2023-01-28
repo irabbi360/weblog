@@ -6,13 +6,18 @@
                 <a href="{{ route('singlePost', $post->id) }}">
                     <img class="card-img-top" data-src="{{ 'uploads/posts/'.$post->thumbnail }}"
                          alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;"
-                         src="https://picsum.photos/seed/16/960/640" data-holder-rendered="true">
+                         src="{{ $post->thumbnail ? 'uploads/posts/'.$post->thumbnail : asset('uploads/posts/960x460.png') }}" data-holder-rendered="true">
                 </a>
                 <div class="card-body">
                     <a href="{{ route('singlePost', $post->id) }}">
                         <h3 class="card-text">{{ $post->title }}</h3>
                     </a>
-                    <p class="text-gray-400">By <a href="#">{{ optional($post->user)->name }}</a> <span>{{ $post->created_at->format('m/d/Y') }}</span> <span class="d-inline float-end">{{ $post->comments_count }}</span> </p>
+                    <p class="text-gray-400">By <a href="#">{{ optional($post->user)->name }}</a> <span>{{ $post->created_at->format('m/d/Y') }}</span>
+                        <span class="d-inline float-end">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            {{ $post->comments_count }}
+                        </span>
+                    </p>
                     <p class="text-gray-400">{{ Str::limit(strip_tags($post->body), 50) }}</p>
                 </div>
                 <div class="card-footer bg-transparent border-0 mb-3">

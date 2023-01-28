@@ -1,5 +1,185 @@
 @extends('layouts.master')
 
 @section('content')
-    <h2>Dashboard</h2>
+    <div class="row">
+        <div class="col-12 col-sm-6 col-xxl-3 d-flex mb-4">
+            <div class="card illustration flex-fill">
+                <div class="card-body p-0 d-flex flex-fill">
+                    <div class="row g-0 w-100">
+                        <div class="col-6">
+                            <div class="illustration-text p-3 m-1">
+                                <h4 class="illustration-text">Welcome Back, {{ auth()->user()->name }}!</h4>
+                                @php
+                                    $roles = auth()->user()->getRoleNames()->toArray();
+                                @endphp
+                                <p class="mb-0">{{ implode(" ", $roles) }}</p>
+                            </div>
+                        </div>
+                        <div class="col-6 align-self-end text-end">
+                            <img src="{{ asset('images/admin/customer-support.png') }}" alt="Customer Support"
+                                 class="img-fluid illustration-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xxl-3 d-flex mb-4">
+            <div class="card flex-fill">
+                <div class="card-body py-4">
+                    <div class="d-flex align-items-start">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-2">{{ $count['users'] ?? 0 }}</h3>
+                            <p class="mb-2">Total Users</p>
+                            <div class="mb-0">
+                                {{--<span class="badge badge-soft-success me-2"> +5.35% </span>
+                                <span class="text-muted">Since last week</span>--}}
+                            </div>
+                        </div>
+                        <div class="d-inline-block ms-3">
+                            <div class="stat">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-users align-middle text-success">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xxl-3 d-flex mb-4">
+            <div class="card flex-fill">
+                <div class="card-body py-4">
+                    <div class="d-flex align-items-start">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-2">{{ $count['posts'] ?? 0 }}</h3>
+                            <p class="mb-2">Total Posts</p>
+                            <div class="mb-0">
+                            </div>
+                        </div>
+                        <div class="d-inline-block ms-3">
+                            <div class="stat">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     class="feather feather-bar-chart-2 align-middle text-primary">
+                                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xxl-3 d-flex mb-4">
+            <div class="card flex-fill">
+                <div class="card-body py-4">
+                    <div class="d-flex align-items-start">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-2">{{ $count['tags'] ?? 0 }}</h3>
+                            <p class="mb-2">Total Tag</p>
+                            <div class="mb-0">
+                            </div>
+                        </div>
+                        <div class="d-inline-block ms-3">
+                            <div class="stat">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-tag align-middle text-info">
+                                    <path
+                                        d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                                    <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="card-title float-start">Latest 5 Posts</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Thumbnail</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>CreatedBy</th>
+                                <th>Total Read</th>
+                                <th>Created At</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($newPosts as $post)
+                                <tr>
+                                    <td>{{ $post->title }}</td>
+                                    <td><img src="{{ 'uploads/posts/'.$post->thumbnail }}"
+                                             style="width: 50px; height: 50px"></td>
+                                    <td>{{ $post->category->title }}</td>
+                                    <td>{{ Str::limit(strip_tags($post->body), 30) }}</td>
+                                    <td>{{ optional($post->user)->name }}</td>
+                                    <td>{{ $post->read_count }}</td>
+                                    <td>{{ $post->created_at->diffForHumans() }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="card-title float-start">Top 5 Posts</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Thumbnail</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>CreatedBy</th>
+                                <th>Total Read</th>
+                                <th>Created At</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($topPosts as $post)
+                                <tr>
+                                    <td>{{ $post->title }}</td>
+                                    <td><img src="{{ 'uploads/posts/'.$post->thumbnail }}"
+                                             style="width: 50px; height: 50px"></td>
+                                    <td>{{ $post->category->title }}</td>
+                                    <td>{{ Str::limit(strip_tags($post->body), 30) }}</td>
+                                    <td>{{ optional($post->user)->name }}</td>
+                                    <td>{{ $post->read_count }}</td>
+                                    <td>{{ $post->created_at->diffForHumans() }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

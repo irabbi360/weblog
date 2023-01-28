@@ -159,6 +159,22 @@ main .card .card-header{
 main .card .card-footer{
     background: transparent;
 }
+.dropdown-menu[data-bs-popper] {
+    left: auto;
+    right: 0;
+    margin-top: var(--bs-dropdown-spacer);
+    top: 100%;
+}
+
+.illustration {
+    background: #e0eafc;
+    color: #3f80ea;
+}
+.illustration-img {
+    max-width: 150px;
+    width: 100%;
+}
+
 @media (min-width: 992px){
     .dropdown-menu-lg-start[data-bs-popper] {
         left: auto;
@@ -169,10 +185,4 @@ main .card .card-footer{
     .sidebar {
         top: 0;
     }
-}
-.dropdown-menu[data-bs-popper] {
-    left: auto;
-    right: 0;
-    margin-top: var(--bs-dropdown-spacer);
-    top: 100%;
 }

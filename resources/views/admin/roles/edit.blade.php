@@ -9,11 +9,10 @@
         <div class="card-header">
             Edit Role
         </div>
-
-        <div class="card-body">
-            <form action="{{ route("admin.roles.update", [$role->id]) }}" method="POST">
-                @csrf
-                @method('PUT')
+        <form action="{{ route("admin.roles.update", [$role->id]) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="card-body">
                 <div class="mb-3">
                     <label for="title">Title*</label>
                     <input type="text" id="title" name="title" class="form-control @error('name') is-invalid @enderror"
@@ -42,14 +41,14 @@
                     </span>
                     @enderror
                 </div>
-            </form>
-        </div>
-        <div class="card-footer">
-            <button class="btn btn-primary me-2" type="submit">Update</button>
-            <a class="btn btn-secondary" href="{{ route('admin.roles.index') }}">
-                Back to list
-            </a>
-        </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary me-2" type="submit">Update</button>
+                <a class="btn btn-secondary" href="{{ route('admin.roles.index') }}">
+                    Back to list
+                </a>
+            </div>
+        </form>
     </div>
 @endsection
 

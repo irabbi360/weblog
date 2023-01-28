@@ -175,6 +175,10 @@ main .card .card-footer{
     width: 100%;
 }
 
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: solid #ddd 1px;
+}
+
 @media (min-width: 992px){
     .dropdown-menu-lg-start[data-bs-popper] {
         left: auto;

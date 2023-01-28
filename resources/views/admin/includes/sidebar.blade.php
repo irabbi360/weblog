@@ -48,9 +48,9 @@
             </li>
             @endcan
             @can('tag_access')
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link {{ (request()->is('admin/tags*')) ? 'active' : '' }}" href="{{ route('admin.tags.index') }}">
-                    <span data-feather="list" class="align-text-bottom"></span>
+                    <span data-feather="tag" class="align-text-bottom"></span>
                     Tags
                 </a>
             </li>
@@ -64,12 +64,12 @@
             </a>
         </h6>
         <ul class="nav flex-column mb-2">
-            <li class="nav-item">
+            {{--<li class="nav-item">
                 <a class="nav-link" href="#">
                     <span data-feather="settings" class="align-text-bottom"></span>
                     App Setting
                 </a>
-            </li>
+            </li>--}}
             <li class="nav-item">
                 <a class="nav-link {{ (request()->is('admin/profile')) ? 'active' : '' }}" href="{{ route('admin.profile.index') }}">
                     <span data-feather="user" class="align-text-bottom"></span>

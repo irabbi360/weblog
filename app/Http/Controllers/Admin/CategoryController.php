@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -108,21 +109,18 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
         abort_if(Gate::denies('category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $category = Category::findOrFail($id);
-
-        $done = $category->delete();
-        if ($done){
-
-            return redirect()->back()->with('message','Category deleted done');
+        if (!DB::table('posts')->where('category_id', $category->id)->exists()){
+            $category->delete();
+            return redirect()->back()->with('message', 'Category deleted successfully.');
         }
 
-        return redirect()->back()->with('message','Category delete fail!');
+        return redirect()->back()->with('error', "Category is used on post, you can't delete it!");
     }
 }

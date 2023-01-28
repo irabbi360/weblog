@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -96,15 +97,18 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Tag $tag
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Tag $tag)
     {
         abort_if(Gate::denies('tag_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $tag->delete();
+        if (!DB::table('post_tag')->where('tag_id', $tag->id)->exists()){
+            $tag->delete();
+            return redirect()->back()->with('message', 'Tag deleted successfully.');
+        }
 
-        return redirect()->back()->with('message', 'Tag deleted successfully.');
+        return redirect()->back()->with('error', "Tag is used on post, you can't delete it!");
     }
 }

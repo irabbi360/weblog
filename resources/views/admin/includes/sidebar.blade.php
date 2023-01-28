@@ -2,14 +2,14 @@
     <div class="position-sticky pt-3 bg-white shadow-sm sidebar-sticky">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ route('admin.index') }}">
+                <a class="nav-link {{ (request()->is('admin')) ? 'active' : '' }}" aria-current="page" href="{{ route('admin.index') }}">
                     <span data-feather="home" class="align-text-bottom"></span>
                     Dashboard
                 </a>
             </li>
             @can('user_access')
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.users.index') }}">
+                <a class="nav-link {{ (request()->is('admin/users*')) ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
                     <span data-feather="users" class="align-text-bottom"></span>
                     Users
                 </a>
@@ -17,7 +17,7 @@
             @endcan
             @can('permission_access')
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.permissions.index') }}">
+                <a class="nav-link {{ (request()->is('admin/permissions*')) ? 'active' : '' }}" href="{{ route('admin.permissions.index') }}">
                     <span data-feather="shield" class="align-text-bottom"></span>
                     Permissions
                 </a>
@@ -25,7 +25,7 @@
             @endcan
             @can('role_access')
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.roles.index') }}">
+                <a class="nav-link {{ (request()->is('admin/roles*')) ? 'active' : '' }}" href="{{ route('admin.roles.index') }}">
                     <span data-feather="disc" class="align-text-bottom"></span>
                     Roles
                 </a>
@@ -33,7 +33,7 @@
             @endcan
             @can('post_access')
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.posts.index') }}">
+                <a class="nav-link {{ (request()->is('admin/posts*')) ? 'active' : '' }}" href="{{ route('admin.posts.index') }}">
                     <span data-feather="file" class="align-text-bottom"></span>
                     Posts
                 </a>
@@ -41,15 +41,15 @@
             @endcan
             @can('category_access')
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.categories.index') }}">
+                <a class="nav-link {{ (request()->is('admin/categories*')) ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">
                     <span data-feather="list" class="align-text-bottom"></span>
                     Categories
                 </a>
             </li>
             @endcan
             @can('tag_access')
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.tags.index') }}">
+            <li class="nav-item active">
+                <a class="nav-link {{ (request()->is('admin/tags*')) ? 'active' : '' }}" href="{{ route('admin.tags.index') }}">
                     <span data-feather="list" class="align-text-bottom"></span>
                     Tags
                 </a>
@@ -71,13 +71,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link {{ (request()->is('admin/profile')) ? 'active' : '' }}" href="#">
                     <span data-feather="user" class="align-text-bottom"></span>
                     Profile
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link {{ (request()->is('admin/change-pass')) ? 'active' : '' }}" href="#">
                     <span data-feather="key" class="align-text-bottom"></span>
                     Change Password
                 </a>

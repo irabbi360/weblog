@@ -20,7 +20,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($tags as $tag)
+                    @forelse($tags as $tag)
                         <tr>
                             <td>{{ $tag->id }}</td>
                             <td>{{ $tag->title }}</td>
@@ -43,7 +43,9 @@
                                 </a>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <td colspan="3" class="text-center">No data found!</td>
+                    @endforelse
                     </tbody>
                 </table>
             </div>

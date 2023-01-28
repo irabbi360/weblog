@@ -36,6 +36,10 @@ class PermissionTableSeeder extends Seeder
             'category_create',
             'category_edit',
             'category_delete',
+            'tag_access',
+            'tag_create',
+            'tag_edit',
+            'tag_delete',
             'comment_access',
             'comment_edit',
             'comment_delete'

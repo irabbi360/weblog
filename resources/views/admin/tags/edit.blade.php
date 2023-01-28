@@ -10,7 +10,7 @@
             {{ method_field('PUT') }}
             <div class="card-body">
                 <div class="form-group">
-                    <label for="title">Tag Name</label>
+                    <label for="title">Title</label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
                            value="{{ $tag->title }}" id="title" placeholder="Enter Name">
                     @error('title')

@@ -5,6 +5,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 Breadcrumbs::for('admin.index', function (BreadcrumbTrail $trail): void {
@@ -39,10 +40,10 @@ Breadcrumbs::for('admin.categories.create', function (BreadcrumbTrail $trail): v
 
     $trail->push('Add new category', route('admin.posts.create'));
 });
-Breadcrumbs::for('admin.categories.edit', function (BreadcrumbTrail $trail, Category $post): void {
+Breadcrumbs::for('admin.categories.edit', function (BreadcrumbTrail $trail, Category $category): void {
     $trail->parent('admin.categories.index');
 
-    $trail->push($post->title, route('admin.categories.edit', $post));
+    $trail->push($category->title ?? 'Edit Category', route('admin.categories.edit', $category));
 });
 // Tag
 Breadcrumbs::for('admin.tags.index', function (BreadcrumbTrail $trail): void {
@@ -84,7 +85,7 @@ Breadcrumbs::for('admin.permissions.create', function (BreadcrumbTrail $trail): 
 
     $trail->push('Add new permission', route('admin.permissions.create'));
 });
-Breadcrumbs::for('admin.permissions.edit', function (BreadcrumbTrail $trail, Role $post): void {
+Breadcrumbs::for('admin.permissions.edit', function (BreadcrumbTrail $trail, Permission $post): void {
     $trail->parent('admin.permissions.index');
 
     $trail->push($post->name, route('admin.permissions.edit', $post));

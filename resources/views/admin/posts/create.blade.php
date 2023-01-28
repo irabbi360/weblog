@@ -15,8 +15,8 @@
             <div class="card-body">
                 <div class="mb-3">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
-                           id="title" placeholder="Enter Name">
+                    <input type="text" value="{{ old('title') }}" class="form-control @error('title') is-invalid @enderror" name="title"
+                           id="title" placeholder="Enter title">
                     @error('title')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -26,10 +26,10 @@
 
                 <div class="mb-3">
                     <label for="title">Category</label>
-                    <select name="category" class="form-control">
-                        <option selected>Select Once</option>
+                    <select name="category" class="form-control @error('category') is-invalid @enderror">
+                        <option>Select Once</option>
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->title }}</option>
+                            <option value="{{ $category->id }}" {{ old('category') == $category->id ? 'selected' : '' }}>{{ $category->title }}</option>
                         @endforeach
                     </select>
                     @error('title')
@@ -42,7 +42,7 @@
                 <div class="mb-3">
                     <label for="summernote">Description</label>
                     <textarea type="text" class="form-control @error('body') is-invalid @enderror"
-                              name="body" id="summernote" placeholder="Enter Description"></textarea>
+                              name="body" id="summernote" placeholder="Enter Description">{{ old('body') }}</textarea>
                     @error('body')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -53,7 +53,7 @@
                     <label for="tags">Tag</label>
                     <select class="form-control js-tags @error('tags') is-invalid @enderror" name="tags[]" multiple="multiple">
                         @foreach($tags as $tag)
-                        <option value="{{ $tag }}">{{ $tag }}</option>
+                        <option value="{{ $tag }}" {{ in_array($tag, old('tags', [])) ? 'selected' : '' }}>{{ $tag }}</option>
                         @endforeach
                     </select>
                     @error('tags')
@@ -64,10 +64,10 @@
                 </div>
                 <img src="" id="image-preview" style="max-height: 150px;">
                 <div class="mb-3">
-                    <label for="image">Upload Image</label>
-                    <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
-                           id="image">
-                    @error('image')
+                    <label for="thumbnail">Upload Thumbnail</label>
+                    <input type="file" class="form-control @error('thumbnail') is-invalid @enderror" name="thumbnail"
+                           id="thumbnail">
+                    @error('thumbnail')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

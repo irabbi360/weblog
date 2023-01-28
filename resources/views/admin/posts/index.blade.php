@@ -28,10 +28,10 @@
                         <tr>
                             <td>{{ $post->id }}</td>
                             <td>{{ $post->title }}</td>
-                            <td><img src="{{ 'uploads/posts/'.$post->thumbnail }}"
+                            <td><img src="{{ asset('uploads/posts/'.$post->thumbnail) }}"
                                      style="width: 50px; height: 50px"></td>
                             <td>{{ $post->category->title }}</td>
-                            <td>{{ strip_tags($post->body) }}</td>
+                            <td>{{ Str::limit(strip_tags($post->body), 40) }}</td>
                             <td>{{ optional($post->user)->name }}</td>
                             <td>{{ $post->created_at->diffForHumans() }}</td>
                             <td>

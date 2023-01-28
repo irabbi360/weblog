@@ -25,10 +25,10 @@ class StorePostRequest extends FormRequest
     {
         return [
             'title'       => 'required',
-            'image' => 'required',
+            'thumbnail' => 'required',
             'category' => 'required',
-            'description' => 'required',
-            'tags'        => 'required',
+            'body' => 'required',
+            'tags*'        => 'required',
         ];
     }
 }

@@ -16,12 +16,13 @@
                             @if($post->tags->count() > 0)
                                 tags: @foreach($post->tags as $tag)
                                     <a href="{{ route('tag.posts', $tag->id) }}" class="me-1">
-                                    {{ $tag->title }}
+                                        {{ $tag->title }}
                                     </a>
                                 @endforeach
                             @endif
                         </div>
                     </div>
+                    <hr class="text-gray-400">
                     <img class="card-img-top" src="{{ '/uploads/posts/'.$post->thumbnail }}" alt="">
                     <hr>
                     <div class="post-body text-white">

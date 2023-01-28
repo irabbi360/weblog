@@ -55,17 +55,18 @@ class PostController extends Controller
     {
         abort_if(Gate::denies('post_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        if ($request->hasFile('image')){
-            $image = $request->file('image');
-            $fileName = time().'.'. $image->getClientOriginalExtension();
-            Image::make($image)->save(public_path('uploads/posts/'. $fileName));
+        if ($request->hasFile('thumbnail')){
+            $thumbnail = $request->file('thumbnail');
+            $fileName = time().'.'. $thumbnail->getClientOriginalExtension();
+            Image::make($thumbnail)->save(public_path('uploads/posts/'. $fileName));
         }
 
         $post = new Post();
         $post->title = $request->title;
         $post->category_id = $request->category;
-        $post->body = $request->description;
+        $post->body = $request->body;
         $post->thumbnail = $fileName;
+        $post->is_published = 1;
 
        if ($post->save()){
            $tagsId = collect($request->tags)->map(function ($tag) {

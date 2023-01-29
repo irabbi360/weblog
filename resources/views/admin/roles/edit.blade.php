@@ -15,9 +15,9 @@
             <div class="card-body">
                 <div class="mb-3">
                     <label for="title">Title*</label>
-                    <input type="text" id="title" name="title" class="form-control @error('name') is-invalid @enderror"
-                           value="{{ old('title', isset($role) ? $role->name : '') }}" required>
-                    @error('name'))
+                    <input type="text" id="title" name="name" class="form-control @error('name') is-invalid @enderror"
+                           value="{{ old('name', isset($role) ? $role->name : '') }}" required>
+                    @error('name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

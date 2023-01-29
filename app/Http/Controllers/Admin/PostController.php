@@ -25,7 +25,7 @@ class PostController extends Controller
     {
         abort_if(Gate::denies('post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $posts = Post::with('category','user')->orderBy('id','desc')->paginate(15);
+        $posts = Post::getDashboardPosts()->with('category','user')->paginate(15);
 
         return view('admin.posts.index',compact('posts'));
     }
@@ -75,7 +75,7 @@ class PostController extends Controller
 
            $post->tags()->attach($tagsId);
 
-           return redirect()->back()->with('message','Post successfully saved');
+           return redirect()->route('admin.posts.index')->with('message','Post successfully saved');
        }
 
        return redirect()->back()->with('message','Whoops! something went wrong!');

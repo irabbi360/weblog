@@ -85,4 +85,13 @@ class Post extends Model
         $this->read_count++;
         return $this->save();
     }
+
+    public function getDashboardPosts()
+    {
+        if (auth()->user()->hasRole('Admin')) {
+            return self::query();
+        } else {
+            return self::where('created_by', auth()->id());
+        }
+    }
 }

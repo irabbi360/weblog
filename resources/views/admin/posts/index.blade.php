@@ -24,11 +24,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($posts as $post)
+                    @forelse($posts as $post)
                         <tr>
                             <td>{{ $post->id }}</td>
                             <td>{{ $post->title }}</td>
-                            <td><img src="{{ $post->thumbnail ? 'uploads/posts/'.$post->thumbnail : asset('images/placeholder-post.png') }}"
+                            <td><img src="{{ $post->thumbnail ? asset('uploads/posts/'.$post->thumbnail) : asset('images/placeholder-post.png') }}"
                                      style="width: 50px; height: 50px"></td>
                             <td>{{ $post->category->title }}</td>
                             <td>{{ Str::limit(strip_tags($post->body), 40) }}</td>
@@ -52,7 +52,9 @@
                                 </a>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <td colspan="7" class="text-center">No data found!</td>
+                    @endforelse
                     </tbody>
                 </table>
             </div>

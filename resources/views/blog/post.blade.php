@@ -23,8 +23,9 @@
                         </div>
                     </div>
                     <hr class="text-gray-400">
+                    @if($post->thumbnail)
                     <img class="card-img-top" src="{{ '/uploads/posts/'.$post->thumbnail }}" alt="">
-                    <hr>
+                    @endif
                     <div class="post-body text-white">
                         {!! $post->body !!}
                     </div>

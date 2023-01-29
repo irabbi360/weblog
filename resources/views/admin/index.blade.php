@@ -128,7 +128,7 @@
                             @foreach($newPosts as $post)
                                 <tr>
                                     <td>{{ $post->title }}</td>
-                                    <td><img src="{{ 'uploads/posts/'.$post->thumbnail }}"
+                                    <td><img src="{{ $post->thumbnail ? 'uploads/posts/'.$post->thumbnail : asset('images/placeholder-post.png') }}"
                                              style="width: 50px; height: 50px"></td>
                                     <td>{{ $post->category->title }}</td>
                                     <td>{{ Str::limit(strip_tags($post->body), 30) }}</td>
@@ -166,7 +166,7 @@
                             @foreach($topPosts as $post)
                                 <tr>
                                     <td>{{ $post->title }}</td>
-                                    <td><img src="{{ 'uploads/posts/'.$post->thumbnail }}"
+                                    <td><img src="{{ $post->thumbnail ? 'uploads/posts/'.$post->thumbnail : asset('images/placeholder-post.png') }}"
                                              style="width: 50px; height: 50px"></td>
                                     <td>{{ $post->category->title }}</td>
                                     <td>{{ Str::limit(strip_tags($post->body), 30) }}</td>

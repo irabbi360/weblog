@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -88,11 +90,14 @@ class UserController extends Controller
 
     public function banUnban($id, $status)
     {
-        $user = User::findOrFail($id);
-        $user->status = $status;
-        if ($user->save()){
-            return redirect()->back()->with('message', 'User status updated successfully!');
+        if (auth()->user()->hasRole('Admin')){
+            $user = User::findOrFail($id);
+            $user->status = $status;
+            if ($user->save()){
+                return redirect()->back()->with('message', 'User status updated successfully!');
+            }
+            return redirect()->back()->with('error', 'User status update fail!');
         }
-        return redirect()->back()->with('error', 'User status update fail!');
+        return redirect(Response::HTTP_FORBIDDEN, '403 Forbidden');
     }
 }

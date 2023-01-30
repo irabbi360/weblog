@@ -62,10 +62,10 @@
                                 {{ $user->created_at->format('Y-m-d') ?? '' }}
                             </td>
                             <td>
-                                @if($user->status === 0)
-                                <a href="{{ route('admin.user.banUnban', ['id' => $user->id, 'status' => 1]) }}" class="badge bg-info">Unblock</a>
+                                @if($user->status)
+                                    <a href="{{ route('admin.user.banUnban', ['id' => $user->id, 'status' => 0]) }}" class="badge bg-danger">Block</a>
                                 @else
-                                <a href="{{ route('admin.user.banUnban', ['id' => $user->id, 'status' => 0]) }}" class="badge bg-danger">Block</a>
+                                    <a href="{{ route('admin.user.banUnban', ['id' => $user->id, 'status' => 1]) }}" class="badge bg-info">Unblock</a>
                                 @endif
                             </td>
                         </tr>

@@ -24,7 +24,13 @@
                             Roles
                         </th>
                         <th>
+                            Status
+                        </th>
+                        <th>
                             Register At
+                        </th>
+                        <th>
+                            Action
                         </th>
                     </tr>
                     </thead>
@@ -46,7 +52,21 @@
                                 @endforeach
                             </td>
                             <td>
+                                @if($user->status)
+                                    <span class="badge bg-success">Active</span>
+                                @else
+                                    <span class="badge bg-danger">Blocked</span>
+                                @endif
+                            </td>
+                            <td>
                                 {{ $user->created_at->format('Y-m-d') ?? '' }}
+                            </td>
+                            <td>
+                                @if($user->status === 0)
+                                <a href="{{ route('admin.user.banUnban', ['id' => $user->id, 'status' => 1]) }}" class="badge bg-info">Unblock</a>
+                                @else
+                                <a href="{{ route('admin.user.banUnban', ['id' => $user->id, 'status' => 0]) }}" class="badge bg-danger">Block</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

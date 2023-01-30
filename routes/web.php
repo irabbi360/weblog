@@ -22,6 +22,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('/tags', 'TagController', ['except' => ['show']]);
     Route::resource('/comments', 'CommentController', ['only' => ['index', 'destroy']]);
     Route::resource('users', UserController::class);
+    Route::get('user-ban-unban/{id}/{status}', 'UserController@banUnban')->name('user.banUnban');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('posts', PostController::class);

@@ -85,4 +85,14 @@ class UserController extends Controller
     {
         //
     }
+
+    public function banUnban($id, $status)
+    {
+        $user = User::findOrFail($id);
+        $user->status = $status;
+        if ($user->save()){
+            return redirect()->back()->with('message', 'User status updated successfully!');
+        }
+        return redirect()->back()->with('error', 'User status update fail!');
+    }
 }

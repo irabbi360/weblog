@@ -6,14 +6,14 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Cookie;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $posts = Post::getAllPosts($request)->paginate(15);
+        $posts = (new \App\Models\Post)->getAllPosts($request)->paginate(15);
 
         return view('welcome', compact('posts'));
     }
@@ -32,7 +32,7 @@ class HomeController extends Controller
 
     public function categoryPosts(Request $request, $id)
     {
-        $posts = Post::getAllPosts($request)
+        $posts = (new \App\Models\Post)->getAllPosts($request)
             ->where('category_id', $id)
             ->paginate(15);
 
@@ -41,7 +41,7 @@ class HomeController extends Controller
 
     public function tagPosts(Request $request, $id)
     {
-        $posts = Post::getAllPosts($request)
+        $posts = (new \App\Models\Post)->getAllPosts($request)
             ->whereHas('tags', function ($q) use ($id) {
                 $q->where('tag_id', $id);
             })

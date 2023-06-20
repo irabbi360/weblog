@@ -20,7 +20,7 @@ class AdminController extends Controller
         $count['posts_read'] = $postQuery->sum('read_count');
         $newPosts = $postQuery->limit(5)->get();
         $topPosts = $postQuery->orderBy('read_count', 'desc')->limit(5)->get();
-        
+
         $count['tags'] = Tag::count();
         $count['comments'] = Comment::where('user_id', auth()->id())->count();
 

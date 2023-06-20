@@ -25,7 +25,7 @@ class PostController extends Controller
     {
         abort_if(Gate::denies('post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $posts = Post::getDashboardPosts()->with('category','user')->paginate(15);
+        $posts = (new \App\Models\Post)->getDashboardPosts()->with('category','user')->paginate(15);
 
         return view('admin.posts.index',compact('posts'));
     }

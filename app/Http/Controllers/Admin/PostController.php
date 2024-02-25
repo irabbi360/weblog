@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -55,10 +56,12 @@ class PostController extends Controller
     {
         abort_if(Gate::denies('post_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        if ($request->hasFile('thumbnail')){
+        $fileName = null;
+
+        if ($request->hasFile('thumbnail')) {
             $thumbnail = $request->file('thumbnail');
-            $fileName = time().'.'. $thumbnail->getClientOriginalExtension();
-            Image::make($thumbnail)->save(public_path('uploads/posts/'. $fileName));
+            $fileName = time() . '.' . $thumbnail->getClientOriginalExtension();
+            $thumbnail->storeAs('uploads/posts', $fileName, 'public');
         }
 
         $post = new Post();
@@ -68,18 +71,17 @@ class PostController extends Controller
         $post->thumbnail = $fileName;
         $post->is_published = 1;
 
-       if ($post->save()){
-           $tagsId = collect($request->tags)->map(function ($tag) {
-               return Tag::firstOrCreate(['title' => $tag])->id;
-           });
+        if ($post->save()) {
+            $tagsId = collect($request->tags)->map(function ($tag) {
+                return Tag::firstOrCreate(['title' => $tag])->id;
+            });
 
-           $post->tags()->attach($tagsId);
+            $post->tags()->attach($tagsId);
 
-           return redirect()->route('admin.posts.index')->with('message','Post successfully saved');
-       }
+            return redirect()->route('admin.posts.index')->with('message', 'Post successfully saved');
+        }
 
-       return redirect()->back()->with('message','Whoops! something went wrong!');
-
+        return redirect()->back()->with('message', 'Whoops! something went wrong!');
     }
 
     /**
@@ -121,10 +123,10 @@ class PostController extends Controller
     {
         abort_if(Gate::denies('post_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        if ($request->hasFile('thumbnail')){
+        if ($request->hasFile('thumbnail')) {
             $thumbnail = $request->file('thumbnail');
-            $fileName = time().'.'. $thumbnail->getClientOriginalExtension();
-            Image::make($thumbnail)->save(public_path('uploads/posts/'. $fileName));
+            $fileName = time() . '.' . $thumbnail->getClientOriginalExtension();
+            $thumbnail->storeAs('uploads/posts', $fileName, 'public');
         }
 
         $post->title = $request->title;
@@ -156,10 +158,16 @@ class PostController extends Controller
 
         $post = Post::findOrFail($id);
 
-        if ($post->delete()){
-            return redirect()->back()->with('message','Post deleted successfully');
+        // Delete the associated thumbnail file
+        if ($post->thumbnail) {
+            Storage::disk('public')->delete('uploads/posts/' . $post->thumbnail);
         }
-        return redirect()->back()->with('message','Whoops!!');
+
+        if ($post->delete()) {
+            return redirect()->back()->with('message', 'Post deleted successfully');
+        }
+
+        return redirect()->back()->with('message', 'Whoops!!');
     }
 
     public function publish(Post $post)

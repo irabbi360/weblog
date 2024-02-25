@@ -11,18 +11,18 @@
             <h6 class="card-title">Edit Post #{{ $post->id }}</h6>
         </div>
         <form role="form" method="post" action="{{ route('admin.posts.update', $post->id) }}"
-              enctype="multipart/form-data">
+            enctype="multipart/form-data">
             @csrf
             {{ method_field('PUT') }}
             <div class="card-body">
                 <div class="mb-3">
                     <label for="title">Title</label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
-                           value="{{ $post->title }}" id="title" placeholder="Enter Name">
+                        value="{{ $post->title }}" id="title" placeholder="Enter Name">
                     @error('title')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
 
@@ -30,53 +30,55 @@
                     <label for="title">Category</label>
                     <select name="category" class="form-control @error('category') is-invalid @enderror">
                         <option selected>Select Once</option>
-                        @foreach($categories as $category)
+                        @foreach ($categories as $category)
                             <option value="{{ $category->id }}" {{ $post->category_id == $category->id ? 'selected' : '' }}>
                                 {{ $category->title }}
                             </option>
                         @endforeach
                     </select>
                     @error('category')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="summernote">Description</label>
-                    <textarea type="text" class="form-control @error('description') is-invalid @enderror"
-                              name="description" id="summernote"
-                              placeholder="Enter Description">{{ $post->body }}</textarea>
+                    <textarea type="text" class="form-control @error('description') is-invalid @enderror" name="description"
+                        id="summernote" placeholder="Enter Description">{{ $post->body }}</textarea>
                     @error('description')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label for="tags">Tag</label>
-                    <select class="form-control js-tags @error('tags') is-invalid @enderror" name="tags[]" multiple="multiple">
-                        @foreach($tags as $tag)
-                            <option value="{{ $tag }}" {{ in_array($tag, $post->tags()->pluck('title')->toArray()) ? 'selected' : '' }}>{{ $tag }}</option>
+                    <select class="form-control js-tags @error('tags') is-invalid @enderror" name="tags[]"
+                        multiple="multiple">
+                        @foreach ($tags as $tag)
+                            <option value="{{ $tag }}"
+                                {{ in_array($tag, $post->tags()->pluck('title')->toArray()) ? 'selected' : '' }}>
+                                {{ $tag }}</option>
                         @endforeach
                     </select>
                     @error('tags')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
-                <img src="{{ url('uploads/posts/', $post->thumbnail) }}" id="image-preview"
-                     style="max-height: 150px;">
+                <img src="{{ url('storage/uploads/posts/', $post->thumbnail) }}" id="image-preview"
+                    style="max-height: 150px;">
                 <div class="mb-3">
                     <label for="thumbnail">Upload Thumbnail</label>
                     <input type="file" class="form-control @error('thumbnail') is-invalid @enderror" name="thumbnail"
-                           id="thumbnail">
+                        id="thumbnail">
                     @error('thumbnail')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
 
@@ -112,7 +114,7 @@
         });
 
         //image upload preview
-        $('#image').change(function () {
+        $('#image').change(function() {
             let reader = new FileReader();
 
             reader.onload = (e) => {
@@ -125,5 +127,4 @@
             tags: true
         });
     </script>
-
 @endsection

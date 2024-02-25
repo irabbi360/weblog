@@ -24,7 +24,8 @@
                     </div>
                     <hr class="text-gray-400">
                     @if ($post->thumbnail)
-                        <img class="card-img-top" src="{{ '/storage/uploads/posts/' . $post->thumbnail }}" alt="post-image">
+                        <img class="card-img-top" src="{{ '/storage/uploads/posts/' . $post->thumbnail }}"
+                            alt="post-images">
                     @endif
                     <div class="post-body text-white">
                         {!! $post->body !!}
